@@ -16,7 +16,7 @@ class WeeklyMoodOverviewTableReseter {
     private func getNextResetTime() -> Date {
         var nextSunday = DateComponents()
         nextSunday.weekday = 1 // Sunday
-        nextSunday.hour = 23   // Midnight
+        nextSunday.hour = 23   
         nextSunday.minute = 59
         nextSunday.second = 59
 

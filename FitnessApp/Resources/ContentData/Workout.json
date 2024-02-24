@@ -1,0 +1,37 @@
+[
+    {
+        "name": "10 MIN Full Body Stretch",
+        "videopath": "video_full_body_stretch",
+        "typetag": "warm_up",
+        "focusareatag": "full_body",
+        "difficultytag": "medium"
+    },
+    {
+        "name": "10 MIN Beginner Abs Workout",
+        "videopath": "video_beginner_abs",
+        "typetag": "cardio;warm_up",
+        "focusareatag": "abs",
+        "difficultytag": "advanced"
+    },
+    {
+        "name": "10 MIN Full Body Workout",
+        "videopath": "video_full_body_workout",
+        "typetag": "hiit",
+        "focusareatag": "upper_body",
+        "difficultytag": "advanced"
+    },
+    {
+        "name": "Dance Like Nobody's Watching",
+        "videopath": "video_dance",
+        "typetag": "dance;hiit",
+        "focusareatag": "full_body",
+        "difficultytag": "easy"
+    },
+    {
+        "name": "10 MIN Begginer Leg Workout",
+        "videopath": "video_begginer_leg",
+        "typetag": "cardio",
+        "focusareatag": "legs",
+        "difficultytag": "medium"
+    }
+]

@@ -18,6 +18,8 @@ struct VideoPlayerView: UIViewControllerRepresentable {
 }
 
 struct WorkoutView: View {
+    @State private var contentDataVideos: [WorkoutVideosModel]? = []
+    
     @State private var searchText: String = ""
     @State private var isSearching = false
     @State private var showCancelButton = false
@@ -149,7 +151,7 @@ struct WorkoutView: View {
                     VideoPlayer(player: videoPlayer1)
                         .frame(width: 370, height: 209)
                         .onAppear {
-                            if let url = Bundle.main.url(forResource: "v1", withExtension: "mp4") {
+                            if let url = Bundle.main.url(forResource: "video_full_body_stretch", withExtension: "mp4") {
                                 videoPlayer1.replaceCurrentItem(with: AVPlayerItem(url: url))
                             } else {
                                 print("Nepodarilo sa nájsť súbor v1.mp4 v bundle.")
@@ -170,7 +172,7 @@ struct WorkoutView: View {
                 VideoPlayer(player: videoPlayer2)
                     .frame(width: 370, height: 209)
                     .onAppear {
-                        if let url = Bundle.main.url(forResource: "v2", withExtension: "mp4") {
+                        if let url = Bundle.main.url(forResource: "video_begginer_leg", withExtension: "mp4") {
                             videoPlayer2.replaceCurrentItem(with: AVPlayerItem(url: url))
                         } else {
                             print("Nepodarilo sa nájsť súbor v2.mp4 v bundle.")
@@ -191,7 +193,7 @@ struct WorkoutView: View {
                 VideoPlayer(player: videoPlayer3)
                     .frame(width: 370, height: 209)
                     .onAppear {
-                        if let url = Bundle.main.url(forResource: "v3", withExtension: "mp4") {
+                        if let url = Bundle.main.url(forResource: "video_beginner_abs", withExtension: "mp4") {
                             videoPlayer3.replaceCurrentItem(with: AVPlayerItem(url: url))
                         } else {
                             print("Nepodarilo sa nájsť súbor v3.mp4 v bundle.")
@@ -212,7 +214,7 @@ struct WorkoutView: View {
                 VideoPlayer(player: videoPlayer4)
                     .frame(width: 370, height: 209)
                     .onAppear {
-                        if let url = Bundle.main.url(forResource: "v4", withExtension: "mp4") {
+                        if let url = Bundle.main.url(forResource: "video_full_body_workout", withExtension: "mp4") {
                             videoPlayer4.replaceCurrentItem(with: AVPlayerItem(url: url))
                         } else {
                             print("Nepodarilo sa nájsť súbor v3.mp4 v bundle.")
@@ -233,7 +235,7 @@ struct WorkoutView: View {
                 VideoPlayer(player: videoPlayer5)
                     .frame(width: 370, height: 209)
                     .onAppear {
-                        if let url = Bundle.main.url(forResource: "v5", withExtension: "mp4") {
+                        if let url = Bundle.main.url(forResource: "video_dance", withExtension: "mp4") {
                             videoPlayer5.replaceCurrentItem(with: AVPlayerItem(url: url))
                         } else {
                             print("Nepodarilo sa nájsť súbor v3.mp4 v bundle.")
@@ -254,6 +256,9 @@ struct WorkoutView: View {
                     
                     Spacer()
                 }
+            }
+            .onAppear{
+                self.contentDataVideos = ContentLoader.loadJSON(fileName: "ContentData/Workout", type: [WorkoutVideosModel].self)
             }
         }
     }

@@ -60,14 +60,15 @@
 		748DF1FD2B6D422D000E80B4 /* Diar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748DF1FC2B6D422D000E80B4 /* Diar.swift */; };
 		748DF2012B6EA230000E80B4 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748DF2002B6EA230000E80B4 /* Account.swift */; };
 		74B79EFA2B1DB3EF00A94780 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B79EF92B1DB3EF00A94780 /* HomeView.swift */; };
-		74BDA0E62B8A62AA000994CB /* v5.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0E52B8A62AA000994CB /* v5.mp4 */; };
-		74BDA0EA2B8A62B2000994CB /* v3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0E72B8A62B2000994CB /* v3.mp4 */; };
-		74BDA0EB2B8A62B2000994CB /* v2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0E82B8A62B2000994CB /* v2.mp4 */; };
-		74BDA0EC2B8A62B2000994CB /* v4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0E92B8A62B2000994CB /* v4.mp4 */; };
+		74BDA0EE2B8A6BC4000994CB /* video_begginer_leg.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0ED2B8A6BC4000994CB /* video_begginer_leg.mp4 */; };
+		74BDA0F22B8A6BCB000994CB /* video_beginner_abs.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0EF2B8A6BCB000994CB /* video_beginner_abs.mp4 */; };
+		74BDA0F32B8A6BCB000994CB /* video_dance.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0F02B8A6BCB000994CB /* video_dance.mp4 */; };
+		74BDA0F42B8A6BCB000994CB /* video_full_body_workout.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0F12B8A6BCB000994CB /* video_full_body_workout.mp4 */; };
+		74BDA0F62B8A6D7C000994CB /* WorkoutVideosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BDA0F52B8A6D7C000994CB /* WorkoutVideosModel.swift */; };
 		74E0525F2B67A77B00DDAAF4 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E0525E2B67A77B00DDAAF4 /* ItemModel.swift */; };
 		74E052612B67A98500DDAAF4 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E052602B67A98500DDAAF4 /* ShoppingListView.swift */; };
 		74E49EC32B6FCF12004FC55C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E49EC22B6FCF12004FC55C /* LaunchScreen.storyboard */; };
-		74E65F812B8A5F03000F9109 /* v1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74E65F7C2B8A5F03000F9109 /* v1.mp4 */; };
+		74E65F812B8A5F03000F9109 /* video_full_body_stretch.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74E65F7C2B8A5F03000F9109 /* video_full_body_stretch.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,14 +123,15 @@
 		748DF1FC2B6D422D000E80B4 /* Diar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diar.swift; sourceTree = "<group>"; };
 		748DF2002B6EA230000E80B4 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		74B79EF92B1DB3EF00A94780 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		74BDA0E52B8A62AA000994CB /* v5.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = v5.mp4; sourceTree = "<group>"; };
-		74BDA0E72B8A62B2000994CB /* v3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = v3.mp4; sourceTree = "<group>"; };
-		74BDA0E82B8A62B2000994CB /* v2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = v2.mp4; sourceTree = "<group>"; };
-		74BDA0E92B8A62B2000994CB /* v4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = v4.mp4; sourceTree = "<group>"; };
+		74BDA0ED2B8A6BC4000994CB /* video_begginer_leg.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_begginer_leg.mp4; sourceTree = "<group>"; };
+		74BDA0EF2B8A6BCB000994CB /* video_beginner_abs.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_beginner_abs.mp4; sourceTree = "<group>"; };
+		74BDA0F02B8A6BCB000994CB /* video_dance.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_dance.mp4; sourceTree = "<group>"; };
+		74BDA0F12B8A6BCB000994CB /* video_full_body_workout.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_full_body_workout.mp4; sourceTree = "<group>"; };
+		74BDA0F52B8A6D7C000994CB /* WorkoutVideosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutVideosModel.swift; sourceTree = "<group>"; };
 		74E0525E2B67A77B00DDAAF4 /* ItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 		74E052602B67A98500DDAAF4 /* ShoppingListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
 		74E49EC22B6FCF12004FC55C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		74E65F7C2B8A5F03000F9109 /* v1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = v1.mp4; sourceTree = "<group>"; };
+		74E65F7C2B8A5F03000F9109 /* video_full_body_stretch.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_full_body_stretch.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				1A4277032B4DBAAE009C6398 /* HomeRandomExerciseModel.swift */,
 				1A391A6B2B4E9E7C00084BA6 /* RecipesModel.swift */,
 				1A94F4A92B52C50400F9C53F /* HomeMiniblogModel.swift */,
+				74BDA0F52B8A6D7C000994CB /* WorkoutVideosModel.swift */,
 			);
 			path = ContentDataModel;
 			sourceTree = "<group>";
@@ -222,11 +225,11 @@
 		744DBE1C2B13B6CF00DA742D /* Workout */ = {
 			isa = PBXGroup;
 			children = (
-				74E65F7C2B8A5F03000F9109 /* v1.mp4 */,
-				74BDA0E82B8A62B2000994CB /* v2.mp4 */,
-				74BDA0E72B8A62B2000994CB /* v3.mp4 */,
-				74BDA0E92B8A62B2000994CB /* v4.mp4 */,
-				74BDA0E52B8A62AA000994CB /* v5.mp4 */,
+				74E65F7C2B8A5F03000F9109 /* video_full_body_stretch.mp4 */,
+				74BDA0ED2B8A6BC4000994CB /* video_begginer_leg.mp4 */,
+				74BDA0EF2B8A6BCB000994CB /* video_beginner_abs.mp4 */,
+				74BDA0F02B8A6BCB000994CB /* video_dance.mp4 */,
+				74BDA0F12B8A6BCB000994CB /* video_full_body_workout.mp4 */,
 				744DBE1D2B13B78400DA742D /* WorkoutView.swift */,
 			);
 			path = Workout;
@@ -441,15 +444,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74BDA0E62B8A62AA000994CB /* v5.mp4 in Resources */,
 				1A4277022B4DA9D9009C6398 /* ContentData in Resources */,
-				74BDA0EB2B8A62B2000994CB /* v2.mp4 in Resources */,
 				1A814F472B545CC90014D3FD /* GoogleService-Info.plist in Resources */,
-				74E65F812B8A5F03000F9109 /* v1.mp4 in Resources */,
-				74BDA0EC2B8A62B2000994CB /* v4.mp4 in Resources */,
+				74BDA0F22B8A6BCB000994CB /* video_beginner_abs.mp4 in Resources */,
+				74E65F812B8A5F03000F9109 /* video_full_body_stretch.mp4 in Resources */,
+				74BDA0F32B8A6BCB000994CB /* video_dance.mp4 in Resources */,
+				74BDA0EE2B8A6BC4000994CB /* video_begginer_leg.mp4 in Resources */,
 				746FEFC52ACDBC69007D18F7 /* LaunchScreen.storyboard in Resources */,
 				74E49EC32B6FCF12004FC55C /* LaunchScreen.storyboard in Resources */,
-				74BDA0EA2B8A62B2000994CB /* v3.mp4 in Resources */,
+				74BDA0F42B8A6BCB000994CB /* video_full_body_workout.mp4 in Resources */,
 				746FEFC22ACDBC69007D18F7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,6 +489,7 @@
 				748DF1FD2B6D422D000E80B4 /* Diar.swift in Sources */,
 				1A8FED6D2B4EF85100059CC8 /* RecipeInformationNutritionBadge.swift in Sources */,
 				741895592B4F07DB00B9102B /* MiniblogOfMonth.swift in Sources */,
+				74BDA0F62B8A6D7C000994CB /* WorkoutVideosModel.swift in Sources */,
 				1A94F4AC2B52DBE300F9C53F /* RecipeInformationDietaryInfo.swift in Sources */,
 				1A42770A2B4DCCC0009C6398 /* WeeklyMoodOverviewTable.swift in Sources */,
 				746FEFBB2ACDBC65007D18F7 /* SceneDelegate.swift in Sources */,
