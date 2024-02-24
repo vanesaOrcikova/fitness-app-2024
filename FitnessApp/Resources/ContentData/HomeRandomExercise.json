@@ -1,0 +1,72 @@
+[
+    {
+        "category": "abs",
+        "exercise1": "Bicycle Crunches (3x15)",
+        "exercise1imgpath": "exercise_bicycle_crunch",
+        "exercise2": "Plank (3x30 sec)",
+        "exercise2imgpath": "exercise_plank"
+    },
+    {
+        "category": "abs",
+        "exercise1": "Reverse Crunches (3x15)",
+        "exercise1imgpath": "exercise_reverse_crunch",
+        "exercise2": "V-Ups (3x12)",
+        "exercise2imgpath": "exercise_v_up"
+    },
+    {
+        "category": "legs",
+        "exercise1": "Squats (3x15)",
+        "exercise1imgpath": "exercise_squat",
+        "exercise2": "Bulgarian Split Squats (3x12)",
+        "exercise2imgpath": "exercise_bulgarian_split_squat"
+    },
+    {
+        "category": "legs",
+        "exercise1": "High Knees (3x30 sec)",
+        "exercise1imgpath": "exercise_high_knee",
+        "exercise2": "Lunges (3x12 per leg)",
+        "exercise2imgpath": "exercise_plank"
+    },
+    {
+        "category": "arms",
+        "exercise1": "Push-ups (3x10)",
+        "exercise1imgpath": "exercise_push_up",
+        "exercise2": "Tricep Dips (3x10)",
+        "exercise2imgpath": "exercise_tricep_dip"
+    },
+    {
+        "category": "arms",
+        "exercise1": "Bicep Curls (3x12)",
+        "exercise1imgpath": "exercise_biceps_curl",
+        "exercise2": "Arm Circles (3x30 sec)",
+        "exercise2imgpath": "exercise_arms_circle"
+    },
+    {
+        "category": "booty",
+        "exercise1": "Glute Bridges (3x15)",
+        "exercise1imgpath": "exercise_glute_bridge",
+        "exercise2": "Sumo Squats (3x15)",
+        "exercise2imgpath": "exercise_sumo_squat"
+    },
+    {
+        "category": "booty",
+        "exercise1": "Single-Leg Deadlift (3x12)",
+        "exercise1imgpath": "exercise_single_leg_deadlift",
+        "exercise2": "Squat Jumps (3x12)",
+        "exercise2imgpath": "exercise_squat_jump"
+    },
+    {
+        "category": "back",
+        "exercise1": "Good Mornings (3x12)",
+        "exercise1imgpath": "exercise_good_morning",
+        "exercise2": "Deadlifts (3x10)",
+        "exercise2imgpath": "exercise_deadlift"
+    },
+    {
+        "category": "back",
+        "exercise1": "Seated Row (3x12)",
+        "exercise1imgpath": "exercise_seated_row",
+        "exercise2": "Face Pulls (3x12)",
+        "exercise2imgpath": "exercise_face_pull"
+    }
+]

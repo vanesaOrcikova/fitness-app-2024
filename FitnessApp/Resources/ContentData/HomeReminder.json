@@ -1,0 +1,37 @@
+[
+    {
+        "reminder1": "Drink 8 glasses of water",
+        "reminder2": "Take a 15-minute walk",
+        "reminder3": "Spend 30 minutes reading"
+    },
+    {
+        "reminder1": "Eat a healthy breakfast",
+        "reminder2": "Call a friend or family member",
+        "reminder3": "Write down 3 things you're grateful for"
+    },
+    {
+        "reminder1": "Do 30 minutes of exercise",
+        "reminder2": "Meditate for 10 minutes",
+        "reminder3": "Declutter a small area of your home"
+    },
+    {
+        "reminder1": "Prepare a healthy meal",
+        "reminder2": "Spend 20 minutes in nature",
+        "reminder3": "Set goals for the next day"
+    },
+    {
+        "reminder1": "Avoid processed foods today",
+        "reminder2": "Practice deep breathing exercises",
+        "reminder3": "Reflect on your week's achievements"
+    },
+    {
+        "reminder1": "Get 7-8 hours of sleep",
+        "reminder2": "Complete a challenging task",
+        "reminder3": "Enjoy a hobby for 1 hour"
+    },
+    {
+        "reminder1": "Plan your meals for the week",
+        "reminder2": "Disconnect from screens for 2 hours",
+        "reminder3": "Plan a fun activity for the next week"
+    }
+]
