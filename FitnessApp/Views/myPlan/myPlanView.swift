@@ -10,6 +10,7 @@ struct myPlanView: View {
     
     @State private var isDetail1Presented = false
     @State private var isDetail2Presented = false
+    @State private var isDetail3Presented = false
     
     var body: some View {
         //NavigationView {
@@ -108,7 +109,7 @@ struct myPlanView: View {
                                 isDetail1Presented.toggle()
                             }) {
                                 VStack {
-                                    Image("blog1")
+                                    Image("meat1")
                                         .resizable()
                                         .frame(maxWidth: 370)
                                         .frame(height: 250)
@@ -120,7 +121,7 @@ struct myPlanView: View {
                                         .frame(height: 70)
                                         .padding(.top, -8)
                                     
-                                    Text("Coming soon...")
+                                    Text("Meat")
                                         .foregroundColor(.black)
                                         .font(.headline)
                                         .padding(.top, -50)
@@ -139,7 +140,7 @@ struct myPlanView: View {
                                 isDetail2Presented.toggle()
                             }) {
                                 VStack {
-                                    Image("blog1")
+                                    Image("protein")
                                         .resizable()
                                         .frame(maxWidth: 370)
                                         .frame(height: 250)
@@ -151,7 +152,7 @@ struct myPlanView: View {
                                         .frame(height: 70)
                                         .padding(.top, -8)
                                     
-                                    Text("Coming soon...")
+                                    Text("Proteins - not only for muscle")
                                         .foregroundColor(.black)
                                         .font(.headline)
                                         .padding(.top, -50)
@@ -162,8 +163,38 @@ struct myPlanView: View {
                             }
                         }
                         
-                    }
+                    } .padding(.bottom, -80)
                     
+                    NavigationView {
+                        VStack {
+                            Button(action: {
+                                isDetail3Presented.toggle()
+                            }) {
+                                VStack {
+                                    Image("thePower")
+                                        .resizable()
+                                        .frame(maxWidth: 370)
+                                        .frame(height: 250)
+                                        .padding(.top, -100)
+                                    
+                                    RoundedRectangle(cornerRadius: 0)
+                                        .fill(Color.purple.opacity(0.2))
+                                        .frame(maxWidth: 370)
+                                        .frame(height: 70)
+                                        .padding(.top, -8)
+                                    
+                                    Text("The power of silence")
+                                        .foregroundColor(.black)
+                                        .font(.headline)
+                                        .padding(.top, -50)
+                                }
+                            }
+                            .sheet(isPresented: $isDetail3Presented) {
+                                Detail3()
+                            }
+                        }
+                    }
+    
             }
         }
     }

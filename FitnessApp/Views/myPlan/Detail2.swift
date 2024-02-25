@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Detail2: View {
-    let imageName = "eat" // Nastavte název jednoho obrázku
+    let imageName = "protein" // Nastavte název jednoho obrázku
 
     var body: some View {
         ScrollView {
@@ -59,21 +59,25 @@ struct Detail2: View {
                         .fixedSize(horizontal: false, vertical: true)
                     
                     Text("THE CONNECTION BETWEEN PROTEIN AND HUNGER")
-                        .font(.title)
+                        .font(.system(size: 20))
                         .fontWeight(.bold)
+                        .padding(.top, 20)
+                        .fixedSize(horizontal: false, vertical: true)
                     
                     Text("Studies and experiments by scientists show that both animals and humans only eat until their protein requirement is covered. Carbohydrates and fats are not that important when it comes to being hungry. The problem with industrially made foods is that they are usually mixed with cheap sugars and fats. This automatically reduces their protein content, which means that the amount of protein is proportionally lower. That's why you re more likely to overeat and chronically stay hungry.")
                         .padding(.horizontal, 20)
-                        .padding(.top, 10)
+                        //.padding(.top, 10)
                         .fixedSize(horizontal: false, vertical: true)
                     
                     Text("PROTEIN PRODUCTS I LIKE")
-                        .font(.title)
+                        .font(.system(size: 20))
                         .fontWeight(.bold)
+                        .padding(.top, 20)
+                        .fixedSize(horizontal: false, vertical: true)
                     
                     Text("Generally speaking, we can assume you will cover your daily protein requirement with a balanced, healthy diet. If you don't consume enough protein, or just want to use protein shakes as an addition, protein supplements may be your solution. The best known are protein powders that can be used in smoothies or for baking. Powders made from animal sources such as milk protein (casein protein) or whey protein are the most common kinds. However, there are great vegan alternatives. My favourites are pea, rice, peanut, flaxseed and hemp protein, but you can also get protein powder made from soy, seeds and other nuts. \n\n There are also multi-component protein powders available that are a blend of different kinds and therefore offer the full amino acid spectrum. When buying protein powder, you should watch out for the ingredients and nutritional information. Usually the rule of thumb is: the fewer ingredients the better. Some manufacturers add sugar or sweeteners. That's not necessary at all, so I avoid these products. If I'd like to add sweetness to my shake, I can always use fresh fruit. I tend to get bloated from some protein powders. The same kind of another brand will work fine for me though. It's probably the level of processing, so be patient when finding a good one that works with your body! \n\n Another product category is protein bars. It's also crucial to have a look at the ingredients list here! They might sound healthy, but often contain added sugar, sweeteners, artificial flavours and various chemical ingredients. You should consider them sweets in this case.")
                         .padding(.horizontal, 20)
-                        .padding(.top, 10)
+                        //.padding(.top, 10)
                         .fixedSize(horizontal: false, vertical: true)
                     
                     Text("**TIP:** Make sure you drink enough water when consuming protein shakes. People with medical conditions affecting the kidneys or their metabolism, as well as pregnant women, should only consume them to a limited extent, or not at all.")

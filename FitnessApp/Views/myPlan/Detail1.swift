@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Detail1: View {
-    let imageNames = ["eat", "eat", "eat"]
+    let imageNames = ["meat1", "meat2"]
     
     var body: some View {
         ScrollView {

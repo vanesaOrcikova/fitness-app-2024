@@ -65,6 +65,9 @@
 		74BDA0F32B8A6BCB000994CB /* video_dance.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0F02B8A6BCB000994CB /* video_dance.mp4 */; };
 		74BDA0F42B8A6BCB000994CB /* video_full_body_workout.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74BDA0F12B8A6BCB000994CB /* video_full_body_workout.mp4 */; };
 		74BDA0F62B8A6D7C000994CB /* WorkoutVideosModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BDA0F52B8A6D7C000994CB /* WorkoutVideosModel.swift */; };
+		74DB133A2B8B32D500160C36 /* WorkoutElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB13392B8B32D500160C36 /* WorkoutElement.swift */; };
+		74DB133C2B8B3E8000160C36 /* FilterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB133B2B8B3E8000160C36 /* FilterSelectionView.swift */; };
+		74DB133E2B8B886300160C36 /* Detail3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB133D2B8B886300160C36 /* Detail3.swift */; };
 		74E0525F2B67A77B00DDAAF4 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E0525E2B67A77B00DDAAF4 /* ItemModel.swift */; };
 		74E052612B67A98500DDAAF4 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E052602B67A98500DDAAF4 /* ShoppingListView.swift */; };
 		74E49EC32B6FCF12004FC55C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E49EC22B6FCF12004FC55C /* LaunchScreen.storyboard */; };
@@ -128,6 +131,9 @@
 		74BDA0F02B8A6BCB000994CB /* video_dance.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_dance.mp4; sourceTree = "<group>"; };
 		74BDA0F12B8A6BCB000994CB /* video_full_body_workout.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_full_body_workout.mp4; sourceTree = "<group>"; };
 		74BDA0F52B8A6D7C000994CB /* WorkoutVideosModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutVideosModel.swift; sourceTree = "<group>"; };
+		74DB13392B8B32D500160C36 /* WorkoutElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutElement.swift; sourceTree = "<group>"; };
+		74DB133B2B8B3E8000160C36 /* FilterSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionView.swift; sourceTree = "<group>"; };
+		74DB133D2B8B886300160C36 /* Detail3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail3.swift; sourceTree = "<group>"; };
 		74E0525E2B67A77B00DDAAF4 /* ItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 		74E052602B67A98500DDAAF4 /* ShoppingListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
 		74E49EC22B6FCF12004FC55C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -231,6 +237,8 @@
 				74BDA0F02B8A6BCB000994CB /* video_dance.mp4 */,
 				74BDA0F12B8A6BCB000994CB /* video_full_body_workout.mp4 */,
 				744DBE1D2B13B78400DA742D /* WorkoutView.swift */,
+				74DB13392B8B32D500160C36 /* WorkoutElement.swift */,
+				74DB133B2B8B3E8000160C36 /* FilterSelectionView.swift */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -241,6 +249,7 @@
 				744DBE212B13BC1400DA742D /* myPlanView.swift */,
 				744DBE252B13BC2100DA742D /* Detail1.swift */,
 				744DBE272B13BC2500DA742D /* Detail2.swift */,
+				74DB133D2B8B886300160C36 /* Detail3.swift */,
 				74E0525E2B67A77B00DDAAF4 /* ItemModel.swift */,
 				74E052602B67A98500DDAAF4 /* ShoppingListView.swift */,
 				748DF1FC2B6D422D000E80B4 /* Diar.swift */,
@@ -476,7 +485,9 @@
 				744DBE282B13BC2500DA742D /* Detail2.swift in Sources */,
 				744DBE2C2B13BD0C00DA742D /* RMmyPlanViewController.swift in Sources */,
 				744DBE112B13AFCB00DA742D /* RMBreathViewController.swift in Sources */,
+				74DB133E2B8B886300160C36 /* Detail3.swift in Sources */,
 				746FEFBD2ACDBC65007D18F7 /* RMTabBarController.swift in Sources */,
+				74DB133C2B8B3E8000160C36 /* FilterSelectionView.swift in Sources */,
 				1A814F3F2B5452FC0014D3FD /* FirebAuth.swift in Sources */,
 				1A391A6C2B4E9E7C00084BA6 /* RecipesModel.swift in Sources */,
 				748DF2012B6EA230000E80B4 /* Account.swift in Sources */,
@@ -485,6 +496,7 @@
 				1A391A722B4ECBA300084BA6 /* Utilities.swift in Sources */,
 				741BAD152B4579FC00288072 /* RMSettingViewController.swift in Sources */,
 				1A4276E62B4D6E97009C6398 /* HomeMotivationQuoteModel.swift in Sources */,
+				74DB133A2B8B32D500160C36 /* WorkoutElement.swift in Sources */,
 				74B79EFA2B1DB3EF00A94780 /* HomeView.swift in Sources */,
 				748DF1FD2B6D422D000E80B4 /* Diar.swift in Sources */,
 				1A8FED6D2B4EF85100059CC8 /* RecipeInformationNutritionBadge.swift in Sources */,
