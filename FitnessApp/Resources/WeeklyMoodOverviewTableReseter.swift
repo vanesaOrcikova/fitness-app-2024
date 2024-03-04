@@ -15,7 +15,8 @@ class WeeklyMoodOverviewTableReseter {
             resetWeek()
         }
     }
-
+    
+    //func resetWeek()
      private func resetWeek() {
          UserDefaults.standard.set(Array(repeating: "", count: 7), forKey: "weeklyMoodOverviewTableStorage")
          UserDefaults.standard.set(Date(), forKey: "lastResetDate") // Update the last reset date
