@@ -23,11 +23,7 @@ struct WorkoutView: View {
     @State private var searchText: String = ""
     @State private var isSearching = false
     @State private var showCancelButton = false
-    //    @State private var videoPlayer1: AVPlayer?
-    @State private var videoPlayer1 = AVPlayer()
-    @State private var videoPlayer2 = AVPlayer()
-    @State private var videoPlayer3 = AVPlayer()
-    @State private var videoPlayer4 = AVPlayer()
+    // @State private var videoPlayer1: AVPlayer?
     @State private var videoPlayer5 = AVPlayer()
     
     @State private var selectedFilter: String = ""
@@ -111,6 +107,7 @@ struct WorkoutView: View {
                             .sheet(isPresented: $isFilterSelectionSheetPresented) {
                                 FilterSelectionView(selectedFilter: $selectedFilter, isSheetPresented: $isFilterSelectionSheetPresented)
                             }
+                            .padding(.top, -7)
                     }
                     
                     //                    VideoPlayer(player: videoPlayer1)
