@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
             }
             
-            WeeklyMoodOverviewTableReseter.shared.scheduleWeeklyReset()
+            WeeklyMoodOverviewTableReseter.shared.checkAndResetIfNecessary()
             window.makeKeyAndVisible()
             FirebAuth.window = window
             self.window = window

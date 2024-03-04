@@ -2,28 +2,24 @@ import Foundation
 class WeeklyMoodOverviewTableReseter {
     static let shared = WeeklyMoodOverviewTableReseter()
 
-    func scheduleWeeklyReset() {
-        let nextResetTime = getNextResetTime()
-        let timer = Timer(fireAt: nextResetTime, interval: 0, target: self, selector: #selector(resetWeek), userInfo: nil, repeats: false)
-        RunLoop.main.add(timer, forMode: .common)
-    }
-
-    @objc private func resetWeek() {
-        UserDefaults.standard.set(Array(repeating: "", count: 7), forKey: "weeklyMoodOverviewTableStorage")
-        scheduleWeeklyReset() // Reschedule for next week
-    }
-
-    private func getNextResetTime() -> Date {
-        var nextSunday = DateComponents()
-        nextSunday.weekday = 1 // Sunday
-        nextSunday.hour = 23
-        nextSunday.minute = 59
-        nextSunday.second = 59
-
-        let calendar = Calendar.current
+    func checkAndResetIfNecessary() {
+        let lastResetDate = UserDefaults.standard.object(forKey: "lastResetDate") as? Date ?? Date()
         let now = Date()
-        return calendar.nextDate(after: now, matching: nextSunday, matchingPolicy: .nextTimePreservingSmallerComponents)!
+        let calendar = Calendar.current
+
+        let lastResetDay = calendar.component(.weekday, from: lastResetDate)
+        let today = calendar.component(.weekday, from: now)
+
+        // Check if today is Sunday (by swift calendar sunday has index 1) and the last reset was not today
+        if today == 1 && !calendar.isDateInToday(lastResetDate) {
+            resetWeek()
+        }
     }
+
+     private func resetWeek() {
+         UserDefaults.standard.set(Array(repeating: "", count: 7), forKey: "weeklyMoodOverviewTableStorage")
+         UserDefaults.standard.set(Date(), forKey: "lastResetDate") // Update the last reset date
+     }
 }
 
 
