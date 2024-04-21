@@ -208,7 +208,7 @@ struct RecipeDescriptionView: View {
                             }
                         }
                         
-                        Text("--------------------------------------------")
+                        Text("------------------------------------------")
                             .foregroundColor(.purple) // Farebná čiarka
                         
                         Text("Steps")

@@ -152,7 +152,8 @@ struct myPlanView: View {
                                         .frame(height: 70)
                                         .padding(.top, -8)
                                     
-                                    Text("Proteins - not only for muscle")
+                                    Text("Proteins")
+                                    //Text("Proteins - not only for muscle")
                                         .foregroundColor(.black)
                                         .font(.headline)
                                         .padding(.top, -50)

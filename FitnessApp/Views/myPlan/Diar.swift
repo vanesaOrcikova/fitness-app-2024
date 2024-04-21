@@ -1,9 +1,195 @@
 import SwiftUI
 
+//struct Diar: View {
+//    @State private var selectedCategory: String?
+//    @State private var isNoteEditorActive = false
+//    @State private var NoteEditorActive = false
+//    @State private var currentDate = Date()
+//
+//    @State private var noteTitle = ""
+//    @State private var noteText = ""
+//    @State private var notes = [String: (title: String, text: String)]()
+//
+//    private let dateFormatter: DateFormatter = {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd MMMM yyyy"
+//        return formatter
+//    }()
+//
+//    var body: some View {
+//        NavigationView {
+//            ScrollView{
+//                VStack(spacing: 10) {
+//                    HStack {
+//                        Button(action: {
+//                            currentDate = Calendar.current.date(byAdding: .day, value: -1, to: currentDate) ?? Date()
+//                        }) {
+//                            Image(systemName: "chevron.left")
+//                        }
+//                        
+//                        Text(dateFormatter.string(from: currentDate))
+//                            .font(.headline)
+//                            .padding()
+//                        
+//                        Button(action: {
+//                            currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) ?? Date()
+//                        }) {
+//                            Image(systemName: "chevron.right")
+//                        }
+//                    } .padding(.top, -48)
+//
+//                    ExtractedNoteView(icon: "case", text: "work", color: .yellow.opacity(0.5))
+//                        .onTapGesture {
+//                            selectedCategory = "work"
+//                            isNoteEditorActive = true
+//                        }
+//                    
+//                    ExtractedNoteView(icon: "person", text: "personal", color: .green.opacity(0.5))
+//                        .onTapGesture {
+//                            selectedCategory = "personal"
+//                            isNoteEditorActive = true
+//                        }
+//                    
+//                    ExtractedNoteView(icon: "book.closed", text: "reading", color: .red.opacity(0.5))
+//                        .onTapGesture {
+//                            selectedCategory = "reading"
+//                            isNoteEditorActive = true
+//                        }
+//                    
+//                    ExtractedNoteView(icon: "moon", text: "sleep", color: .blue.opacity(0.5))
+//                        .onTapGesture {
+//                            selectedCategory = "sleep"
+//                            isNoteEditorActive = true
+//                        }
+//                    
+//                    ExtractedNoteView(icon: "pencil", text: "my notes", color: .brown.opacity(0.5))
+//                        .onTapGesture {
+//                            selectedCategory = "my notes"
+//                            NoteEditorActive = true
+//                        }.sheet(isPresented: $NoteEditorActive) {
+//                            MyNotesView(selectedCategory: $selectedCategory, notes: $notes)
+//                        }
+//                }
+//                
+//                .padding(25)
+//                .navigationBarTitleDisplayMode(.inline)
+//                .sheet(isPresented: $isNoteEditorActive) {
+//                    NoteEditorView(noteTitle: $noteTitle, noteText: $noteText, notes: $notes)
+//                }
+//                .onAppear {
+//                    selectedCategory = nil
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//struct ExtractedNoteView: View {
+//    var icon: String
+//    var text: String
+//    var color: Color
+//
+//    var body: some View {
+//        VStack(alignment: .leading, spacing: 10) {
+//            HStack {
+//                Image(systemName: icon)
+//                    .padding()
+//                    .background(color.opacity(0.3))
+//                    .clipShape(RoundedRectangle(cornerRadius: 10))
+//                Spacer()
+//            }
+//            Spacer()
+//            Text(text)
+//                .font(.title)
+//        }
+//        .padding()
+//        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//        .background(color.opacity(0.2))
+//        .cornerRadius(15)
+//    }
+//}
+//
+//struct NoteEditorView: View {
+//    @Binding var noteTitle: String
+//    @Binding var noteText: String
+//    @Binding var notes: [String: (title: String, text: String)]
+//    @Environment(\.presentationMode) var presentationMode
+//
+//    var body: some View {
+//        VStack {
+//            TextField("Enter title", text: $noteTitle)
+//                .padding()
+//                .background(Color.gray.opacity(0.1))
+//                .cornerRadius(10)
+//                .padding(.horizontal)
+//                .padding(.top)
+//                .disableAutocorrection(true)
+//
+//            TextEditor(text: $noteText)
+//                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .padding()
+//                .background(Color.gray.opacity(0.1))
+//                .cornerRadius(10)
+//                .padding(.horizontal)
+//                .disableAutocorrection(true)
+//
+//            Spacer()
+//
+//            Button(action: {
+//                saveNote()
+//            }) {
+//                Text("Save")
+//                    .padding()
+//                    .foregroundColor(.white)
+//                    .background(Color.blue)
+//                    .cornerRadius(10)
+//            }
+//            .padding()
+//        }
+//    }
+//
+//    func saveNote() {
+//        if !noteTitle.isEmpty && !noteText.isEmpty {
+//            notes[noteTitle] = (title: noteTitle, text: noteText)
+//            // Vymažeme text po uložení poznámky
+//            noteText = ""
+//            noteTitle = ""
+//        }
+//        presentationMode.wrappedValue.dismiss()
+//    }
+//}
+//
+//struct MyNotesView: View {
+//    @Binding var selectedCategory: String?
+//    @Binding var notes: [String: (title: String, text: String)]
+//
+//    var body: some View {
+//        VStack(spacing: 0) { // Odstranění mezery mezi jednotlivými rámečky
+//            ForEach(Array(notes.values), id: \.title) { note in
+//                VStack(alignment: .leading, spacing: 5) { // Odstranění mezery mezi nadpisy a textem
+//                    Text(note.title)
+//                        .font(.headline)
+//                    Text(note.text)
+//                }
+//                .padding(.horizontal) // Přidání mezery na levé a pravé straně rámečku
+//                .frame(maxWidth: .infinity, alignment: .leading) // Zarovnání obsahu k levému okraji
+//                .background(Color.gray.opacity(0.1))
+//                .cornerRadius(10)
+//                .padding(.bottom, 10) // Přidání mezery mezi jednotlivými rámečky
+//            }
+//        }
+//    }
+//}
+
 struct Diar: View {
     @State private var selectedCategory: String?
     @State private var isNoteEditorActive = false
+    @State private var NoteEditorActive = false
     @State private var currentDate = Date()
+
+    @State private var noteTitle = ""
+    @State private var noteText = ""
+    @State private var notes = [String: (title: String, text: String)]()
 
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -15,10 +201,6 @@ struct Diar: View {
         NavigationView {
             ScrollView{
                 VStack(spacing: 10) {
-                    Text("Your Notes")
-                        .font(.title)
-                        .padding()
-                    
                     HStack {
                         Button(action: {
                             currentDate = Calendar.current.date(byAdding: .day, value: -1, to: currentDate) ?? Date()
@@ -35,39 +217,47 @@ struct Diar: View {
                         }) {
                             Image(systemName: "chevron.right")
                         }
+                    } .padding(.top, -48)
+
+                    ExtractedNoteView(icon: "case", text: "work", color: .yellow.opacity(0.5)) {
+                        selectedCategory = "work"
+                        isNoteEditorActive = true
                     }
                     
-                    ExtractedNoteView(icon: "case", text: "work", color: .yellow.opacity(0.5))
-                        .onTapGesture {
-                            selectedCategory = "work"
-                            isNoteEditorActive = true
-                        }
+                    ExtractedNoteView(icon: "person", text: "personal", color: .green.opacity(0.5)) {
+                        selectedCategory = "personal"
+                        isNoteEditorActive = true
+                    }
                     
-                    ExtractedNoteView(icon: "person", text: "personal", color: .green.opacity(0.5))
-                        .onTapGesture {
-                            selectedCategory = "personal"
-                            isNoteEditorActive = true
-                        }
+                    ExtractedNoteView(icon: "book.closed", text: "reading", color: .red.opacity(0.5)) {
+                        selectedCategory = "reading"
+                        isNoteEditorActive = true
+                    }
                     
-                    ExtractedNoteView(icon: "book.closed", text: "reading", color: .red.opacity(0.5))
-                        .onTapGesture {
-                            selectedCategory = "reading"
-                            isNoteEditorActive = true
-                        }
+                    ExtractedNoteView(icon: "moon", text: "sleep", color: .blue.opacity(0.5)) {
+                        selectedCategory = "sleep"
+                        isNoteEditorActive = true
+                    }
                     
-                    ExtractedNoteView(icon: "moon", text: "sleep", color: .blue.opacity(0.5))
-                        .onTapGesture {
-                            selectedCategory = "sleep"
-                            isNoteEditorActive = true
-                        }
+                    ExtractedNoteView(icon: "pencil", text: "my notes", color: .brown.opacity(0.5)) {
+                        selectedCategory = "my notes"
+                        NoteEditorActive = true
+                    }.sheet(isPresented: $NoteEditorActive) {
+                        MyNotesView(selectedCategory: $selectedCategory, notes: $notes, backgroundColor: .gray)
+//                        MyNotesView(selectedCategory: $selectedCategory, notes: $notes, backgroundColor: .yellow, categoryName: "Work")
+//                        MyNotesView(selectedCategory: $selectedCategory, notes: $notes, backgroundColor: .green, categoryName: "Personal")
+//                        MyNotesView(selectedCategory: $selectedCategory, notes: $notes, backgroundColor: .red, categoryName: "Reading")
+//                        MyNotesView(selectedCategory: $selectedCategory, notes: $notes, backgroundColor: .blue, categoryName: "Sleep")
+                    }
                 }
+                
                 .padding(25)
                 .navigationBarTitleDisplayMode(.inline)
                 .sheet(isPresented: $isNoteEditorActive) {
-                    NoteEditorView()
+                    NoteEditorView(noteTitle: $noteTitle, noteText: $noteText, notes: $notes)
                 }
                 .onAppear {
-                    selectedCategory = nil // Resetovanie vybranej kategórie po návrate na obrazovku Diar
+                    selectedCategory = nil
                 }
             }
         }
@@ -77,14 +267,15 @@ struct Diar: View {
 struct ExtractedNoteView: View {
     var icon: String
     var text: String
-    var color: Color // Pridaná premenná pre farbu pozadia
+    var color: Color
+    var onTap: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Image(systemName: icon)
                     .padding()
-                    .background(color.opacity(0.3)) // Použitie zadaného vybraného farebného tónu
+                    .background(color.opacity(0.3))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 Spacer()
             }
@@ -94,15 +285,19 @@ struct ExtractedNoteView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(color.opacity(0.2)) // Použitie zadaného vybraného farebného tónu
+        .background(color.opacity(0.2))
         .cornerRadius(15)
+        .onTapGesture {
+            onTap()
+        }
     }
 }
 
 struct NoteEditorView: View {
-    @State private var noteTitle = ""
-    @State private var noteText = ""
-    @Environment(\.presentationMode) var presentationMode // Potrebujeme environment pre zatvorenie aktuálneho výhľadu
+    @Binding var noteTitle: String
+    @Binding var noteText: String
+    @Binding var notes: [String: (title: String, text: String)]
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
@@ -112,13 +307,15 @@ struct NoteEditorView: View {
                 .cornerRadius(10)
                 .padding(.horizontal)
                 .padding(.top)
-            
+                .disableAutocorrection(true)
+
             TextEditor(text: $noteText)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding()
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(10)
                 .padding(.horizontal)
+                .disableAutocorrection(true)
             
             Spacer()
             
@@ -136,14 +333,68 @@ struct NoteEditorView: View {
     }
     
     func saveNote() {
-        // Tu môžeš pridať kód na uloženie poznámky, napr. do databázy alebo iného úložiska
-        // Tu len vypíšeme poznámku do konzoly
-        print("Note saved: \(noteText)")
-        
-        // Po uložení poznámky zatvoríme aktuálny výhľad
+        if !noteTitle.isEmpty && !noteText.isEmpty {
+            notes[noteTitle] = (title: noteTitle, text: noteText)
+            // Vymažeme text po uložení poznámky
+            noteText = ""
+            noteTitle = ""
+        }
         presentationMode.wrappedValue.dismiss()
     }
+    
 }
+
+struct MyNotesView: View {
+    @Binding var selectedCategory: String?
+    @Binding var notes: [String: (title: String, text: String)]
+    var backgroundColor: Color
+
+    var body: some View {
+        VStack(spacing: 0) {
+            ForEach(Array(notes.values), id: \.title) { note in
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(note.title)
+                        .font(.headline)
+                    Text(note.text)
+                }
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(backgroundColor.opacity(0.5)) // Nastavení barvy pozadí podle vybrané kategorie
+                .cornerRadius(10)
+                .padding(.bottom, 10)
+            }
+        }
+    }
+}
+
+//struct MyNotesView: View {
+//    @Binding var selectedCategory: String?
+//    @Binding var notes: [String: (title: String, text: String)]
+//    var backgroundColor: Color
+//    var categoryName: String
+//
+//    var body: some View {
+//        VStack(spacing: 10) {
+//            Text(categoryName)
+//                .font(.title)
+//                .padding(.bottom, 10)
+//
+//            ForEach(Array(notes.values), id: \.title) { note in
+//                VStack(alignment: .leading, spacing: 5) {
+//                    Text(note.title)
+//                        .font(.headline)
+//                    Text(note.text)
+//                }
+//                .padding(.horizontal)
+//                .frame(maxWidth: .infinity, alignment: .leading)
+//                .background(backgroundColor.opacity(0.5))
+//                .cornerRadius(10)
+//                .padding(.bottom, 10)
+//            }
+//        }
+//        .padding()
+//    }
+//}
 
 struct Diar_Previews: PreviewProvider {
     static var previews: some View {
