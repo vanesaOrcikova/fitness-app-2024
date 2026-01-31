@@ -1,170 +1,210 @@
 import SwiftUI
 import AVKit
-import AVFoundation
-
-struct VideoPlayerView: UIViewControllerRepresentable {
-    let player: AVPlayer?
-
-    func makeUIViewController(context: Context) -> AVPlayerViewController {
-        let controller = AVPlayerViewController()
-        controller.player = player
-        controller.showsPlaybackControls = false
-        return controller
-    }
-
-    func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {
-        // Implement any updates here if needed
-    }
-}
 
 struct WorkoutView: View {
-    @State private var contentDataVideos: [WorkoutVideosModel]? = []
-    
-    @State private var searchText: String = ""
-    @State private var isSearching = false
-    @State private var showCancelButton = false
-    // @State private var videoPlayer1: AVPlayer?
-    @State private var videoPlayer5 = AVPlayer()
-    
-    @State private var selectedFilter: String = ""
-    @State private var isFilterSelectionSheetPresented = false
-    
+
+    @State private var workouts: [WorkoutVideosModel] = []
+
+    // SEARCH
+    @State private var searchText = ""
+    @State private var debouncedText = ""
+    @State private var debounceTask: Task<Void, Never>?
+
+    // FILTERS
+    @State private var selectedTypes: Set<String> = []
+    @State private var selectedFocusAreas: Set<String> = []
+    @State private var selectedDifficulties: Set<String> = []
+    @State private var showFilter = false
+
+    // VIDEO
+    @State private var selectedWorkoutForPlay: WorkoutVideosModel? = nil
+
+    // 🎀 farby ako Recipes
+    private let bg = Color(red: 1.0, green: 0.97, blue: 0.99)
+    private let accent = Color(red: 0.85, green: 0.20, blue: 0.70)
+    private let accent2 = Color(red: 0.98, green: 0.67, blue: 0.83)
+
+    private var filteredWorkouts: [WorkoutVideosModel] {
+        workouts.filter { workout in
+            let matchesSearch =
+                debouncedText.isEmpty ||
+                workout.name.localizedCaseInsensitiveContains(debouncedText)
+
+            let matchesType =
+                selectedTypes.isEmpty ||
+                !Set(workout.typeTags).isDisjoint(with: selectedTypes)
+
+            let matchesFocus =
+                selectedFocusAreas.isEmpty ||
+                selectedFocusAreas.contains(workout.focusAreaTag)
+
+            let matchesDifficulty =
+                selectedDifficulties.isEmpty ||
+                selectedDifficulties.contains(workout.difficultyTag)
+
+            return matchesSearch && matchesType && matchesFocus && matchesDifficulty
+        }
+    }
+
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack {
-                    Text("Workouts")
-                        .font(.system(size: 24))
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(.top, 20)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 100)
-                        .background(Color.purple)
-                        .padding(.top, -145)
-                    
-                    HStack {
-                        TextField("What would you like to find?", text: $searchText)
-                            .font(.system(size: isSearching ? 17 : 19))
-                            .autocapitalization(.none)
-                            .padding(15)
-                            .padding(.leading, 42)
-                            .background(
-                                ZStack(alignment: .leading) {
-                                    Image(systemName: "magnifyingglass")
-                                        .foregroundColor(.gray)
-                                        .frame(width: 25, height: 25)
-                                        .padding(.leading, 10)
-                                    RoundedRectangle(cornerRadius: 1)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                        .frame(height: 55)
-                                        .frame(width: isSearching ? 315 : 370)
-                                }
-                            )
-                        if isSearching {
-                            Button(action: {
-                                withAnimation {
-                                    isSearching = false
-                                    searchText = ""
-                                }
-                            }) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.black)
-                                    .frame(width: 30, height: 30)
-                                    .padding(.leading, -5)
-                                    .padding(.trailing, 20)
-                            }
-                        }
+        ZStack {
+            bg.ignoresSafeArea()
+
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 12) {
+
+                    VStack(spacing: 6) {
+                        Text("Workouts")
+                            .font(.system(size: 26, weight: .bold))
+                            .foregroundColor(.white)
+
+                        Text("Find your next workout ✨")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundColor(.white.opacity(0.9))
                     }
-                    .padding(.top, -40)
                     .frame(maxWidth: .infinity)
-                    .padding(.bottom, 10)
-                    .onTapGesture {
-                        withAnimation {
-                            isSearching = true
-                        }
-                    }
-                    
-                    HStack {
-                        RoundedRectangle(cornerRadius: 1)
-                            .fill(Color(red: 200/255, green: 180/255, blue: 183/255))
-                            .frame(maxWidth: 370)
-                            .frame(height: 45)
-                            .overlay(
-                                Button(action: {
-                                    isFilterSelectionSheetPresented.toggle()
-                                }) {
-                                    Image(systemName: "slider.horizontal.3")
-                                        .resizable()
-                                        .frame(width: 18, height: 18)
-                                        .foregroundColor(.white)
-                                    Text("FILTER")
-                                        .font(.headline)
-                                        .foregroundColor(.white)
+                    .padding(.vertical, 18)
+                    .background(
+                        LinearGradient(
+                            colors: [accent, accent2],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 26, style: .continuous))
+                    .shadow(radius: 10, y: 4)
+                    .padding(.horizontal, 14)
+                    .padding(.top, -100)
+
+                    // SEARCH
+                    HStack(spacing: 10) {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.gray.opacity(0.9))
+
+                        TextField("What would you like to find?", text: $searchText)
+                            .autocapitalization(.none)
+                            .font(.system(size: 16, weight: .medium))
+                            .onChange(of: searchText) { value in
+                                debounceTask?.cancel()
+                                debounceTask = Task {
+                                    try? await Task.sleep(nanoseconds: 250_000_000)
+                                    if Task.isCancelled { return }
+                                    await MainActor.run { debouncedText = value }
                                 }
-                            )
-                        
-                            .sheet(isPresented: $isFilterSelectionSheetPresented) {
-                                FilterSelectionView(selectedFilter: $selectedFilter, isSheetPresented: $isFilterSelectionSheetPresented)
                             }
-                            .padding(.top, -7)
-                    }
-                    
-                    //                    VideoPlayer(player: videoPlayer1)
-                    //                        .frame(width: 370, height: 209)
-                    //                        .onAppear {
-                    //                            if let url = Bundle.main.url(forResource: "v1", withExtension: "mp4") {
-                    //                                videoPlayer1 = AVPlayer(url: url)
-                    //                                videoPlayer1?.play()
-                    //                            } else {
-                    //                                print("Nepodarilo sa nájsť súbor v1.mp4 v bundle.")
-                    //                            }
-                    //                        }
-                    
-                    
-                    VideoPlayerElement(videoURL: Bundle.main.url(forResource: "video_full_body_stretch", withExtension: "mp4") ?? URL(string: "")!, description: "10 MIN Full Body Stretch")
-                    
-                    VideoPlayerElement(videoURL: Bundle.main.url(forResource: "video_begginer_leg", withExtension: "mp4") ?? URL(string: "")!, description: "10 MIN Beginner Ab Workout")
-                    
-                    VideoPlayerElement(videoURL: Bundle.main.url(forResource: "video_beginner_abs", withExtension: "mp4") ?? URL(string: "")!, description: "10 MIN Full Body Workout")
-                    
-                    VideoPlayerElement(videoURL: Bundle.main.url(forResource: "video_full_body_workout", withExtension: "mp4") ?? URL(string: "")!, description: "Dance Like Nobody's Watching")
-                    
-                    VideoPlayer(player: videoPlayer5)
-                        .frame(width: 370, height: 209)
-                        .onAppear {
-                            if let url = Bundle.main.url(forResource: "video_dance", withExtension: "mp4") {
-                                videoPlayer5.replaceCurrentItem(with: AVPlayerItem(url: url))
-                            } else {
-                                print("Nepodarilo sa nájsť súbor v3.mp4 v bundle.")
+
+                        if !searchText.isEmpty {
+                            Button {
+                                searchText = ""
+                                debouncedText = ""
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.gray.opacity(0.8))
                             }
                         }
-                    
-                    RoundedRectangle(cornerRadius: 0)
-                        .fill(Color.purple.opacity(0.2))
-                        .frame(maxWidth: 370)
-                        .frame(height: 70)
-                        .padding(.top, -8)
-                    
-                    Text("10 MIN Begginer Leg Workout")
-                        .foregroundColor(.black)
-                        .font(.headline)
-                        .padding(.top, -50)
-                    
-                    
-                    Spacer()
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 12)
+                    .background(Color.white.opacity(0.9))
+                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .shadow(radius: 8, y: 3)
+                    .padding(.horizontal, 14)
+
+                    // FILTER BUTTON (ako Recipes)
+                    Button {
+                        showFilter = true
+                    } label: {
+                        Text("FILTER")
+                            .font(.system(size: 15, weight: .bold))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(
+                                LinearGradient(colors: [accent, accent2], startPoint: .leading, endPoint: .trailing)
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                            .shadow(radius: 8, y: 3)
+                    }
+                    .padding(.horizontal, 14)
+                    .sheet(isPresented: $showFilter) {
+                        FilterSelectionView(
+                            selectedTypes: $selectedTypes,
+                            selectedFocusAreas: $selectedFocusAreas,
+                            selectedDifficulties: $selectedDifficulties,
+                            isPresented: $showFilter
+                        )
+                    }
+
+                    // LIST
+                    LazyVStack(spacing: 14) {
+                        ForEach(filteredWorkouts) { workout in
+                            Button {
+                                selectedWorkoutForPlay = workout
+                            } label: {
+                                WorkoutElement(workout: workout)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .padding(.horizontal, 14)
+                        }
+                    }
+                    .padding(.top, 6)
+                    .padding(.bottom, 30)
                 }
             }
-            .onAppear{
-                self.contentDataVideos = ContentLoader.loadJSON(fileName: "ContentData/Workout", type: [WorkoutVideosModel].self)
-            }
+        }
+        .onAppear {
+            // ✅ optional fix
+            workouts = ContentLoader.loadJSON(
+                fileName: "ContentData/Workout",
+                type: [WorkoutVideosModel].self
+            ) ?? []
+        }
+        .sheet(item: $selectedWorkoutForPlay) { workout in
+            WorkoutVideoPlayerView(videoName: workout.videopath)
         }
     }
 }
 
-#Preview {
-    WorkoutView()
+// MARK: - Video Player Sheet
+struct WorkoutVideoPlayerView: View {
+    let videoName: String
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+
+            if let url = Bundle.main.url(forResource: videoName, withExtension: "mp4") {
+                VideoPlayer(player: AVPlayer(url: url))
+                    .ignoresSafeArea()
+            } else {
+                VStack(spacing: 12) {
+                    Text("Video not found")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                    Text("Missing: \(videoName).mp4")
+                        .foregroundColor(.white.opacity(0.7))
+                        .font(.subheadline)
+                }
+            }
+
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.black)
+                            .padding(10)
+                            .background(Color.white.opacity(0.9))
+                            .clipShape(Circle())
+                    }
+                    .padding(.top, 20)
+                    .padding(.trailing, 16)
+                }
+                Spacer()
+            }
+        }
+    }
 }
-
-
-

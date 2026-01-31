@@ -1,61 +1,50 @@
-
-import Foundation
 import SwiftUI
+
 struct RecipeInformationNutritionBadge: View {
-    var nutritionIndex : Int
-    var nutritionValue: String
-    
-    enum NutritionType: Int {
-        case cal = 0
-        case carbs = 1
-        case fat = 2
-        case protein = 3
-        
-        var dictKey: String {
-            switch self {
-            case .cal:
-                return "cal"
-            case .carbs:
-                return "carbs"
-            case .fat:
-                return "fat"
-            case .protein:
-                return "protein"
-            }
-        }
-    }
-    
-    let nutritionBadgesIconsDict: [String: String] = [
-        "cal": "flame",
-        "carbs": "laurel.trailing",
-        "fat": "drop",
-        "protein": "carrot"
-    ]
+    let recipe: RecipesModel
+    let accent: Color
 
-    var getBadgeImage : String{
-        if let nutritionType = NutritionType(rawValue: nutritionIndex) {
-            return nutritionBadgesIconsDict[nutritionType.dictKey] ?? ""
-            
-        }
-        
-        return ""
+    private func parts() -> [String] {
+        recipe.nutritions
+            .components(separatedBy: ";")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
     }
-    
+
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
-            Image(systemName: getBadgeImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50)
-                //.clipShape(Circle())
-                .padding(.leading, 25)
-                .padding(.top, 10)
+        let p = parts()
 
-            Text(nutritionValue)
-                .font(.body)
-                .padding(.top, 25)
+        VStack(alignment: .leading, spacing: 12) {
+            NutritionRow(icon: "flame.fill", label: p.count > 0 ? p[0] : "-", accent: accent)
+            NutritionRow(icon: "leaf.fill", label: p.count > 1 ? p[1] : "-", accent: accent)
+            NutritionRow(icon: "drop.fill", label: p.count > 2 ? p[2] : "-", accent: accent)
+            NutritionRow(icon: "bolt.fill", label: p.count > 3 ? p[3] : "-", accent: accent)
+            Text("per portion")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundColor(.gray)
+        }
+        .padding()
+        .background(Color.white.opacity(0.9))
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .shadow(radius: 6, y: 2)
+    }
+}
 
-            Spacer() // This pushes the image and text to the left
+private struct NutritionRow: View {
+    let icon: String
+    let label: String
+    let accent: Color
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .foregroundColor(accent)
+                .frame(width: 22)
+
+            Text(label)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.black.opacity(0.75))
+
+            Spacer()
         }
     }
 }

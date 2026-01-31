@@ -1,29 +1,23 @@
 import SwiftUI
 
 struct RecipesViewScrollTemplateElement: View {
-    
-    var recipeData: RecipesModel?
-    
-    var body: some View {
-        ZStack {
-            Image(recipeData?.imgpath ?? "")
-                .resizable()
-                .frame(width: 178)
-                .frame(height: 215)
+    let recipeData: RecipesModel
 
-            RoundedRectangle(cornerRadius: 1)
-                .fill(Color.white.opacity(0.7))
-                .frame(maxWidth: 180)
-                .frame(height: 75)
-                .padding(.top, 180)
-            Text(recipeData?.name ?? "Error: Missing Data")
-                .foregroundColor(.black)
-                .font(.headline)
-                .padding(.top, 160)
-            //Spacer()
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Image(recipeData.imgpath)
+                .resizable()
+                .scaledToFill()
+                .frame(height: 150)
+                .clipped()
+
+            Text(recipeData.name)
+                .font(.system(size: 14, weight: .bold))
+                .padding(10)
+                .lineLimit(2)
         }
-        .offset(y: -16)
-        .padding(.bottom, -38)
-        
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 18))
+        .shadow(radius: 8)
     }
 }

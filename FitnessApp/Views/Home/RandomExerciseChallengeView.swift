@@ -1,127 +1,141 @@
 import Foundation
 import SwiftUI
-struct RandomExerciseChallengeView : View {
+
+struct RandomExerciseChallengeView: View {
+
     @State private var contentDataRandomChallenge: [HomeRandomChallengeModel]? = []
     @State private var contentDataRandomExercise: [HomeRandomExerciseModel]? = []
-    
+
     @State private var showAlert = false
     @State private var randomChallenge = ""
     @State private var selectedCategory: String = ""
     @State private var selectedCategoryExercises: [HomeRandomExerciseModel] = []
     @State private var selectedCategoryExerciseIndex: Int = 0
-    
+
     @State private var isImage1Enlarged = false
     @State private var isImage2Enlarged = false
-    
-    var body : some View{
-        VStack(alignment: .leading, spacing: 14) {
-            Text("Exercise ideas and random challenge:")
-                .font(.headline)
-                .padding(.bottom, 8)
-                .padding(.leading, 4)
-        
+
+    private let accent = Color(red: 0.85, green: 0.20, blue: 0.70)
+    private let accent2 = Color(red: 0.98, green: 0.67, blue: 0.83)
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+
+            Text("Exercise ideas & random challenge")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(.black.opacity(0.85))
+
             Picker("", selection: $selectedCategory) {
                 ForEach(GlobalData.exerciseCategory, id: \.self) { header in
-                     Text(header)
-                         .tag(header)
-                 }
-             }
-             .pickerStyle(SegmentedPickerStyle())
-             .onChange(of: selectedCategory) { newValue in
-                 selectedCategoryExercises = self.contentDataRandomExercise?.filter { $0.category == newValue.lowercased() } ?? []
-                 selectedCategoryExerciseIndex =  Utilities.generateRandomIndex(excluding: selectedCategoryExerciseIndex, in: 0..<selectedCategoryExercises.count)
-             }
-            
-            if !selectedCategory.isEmpty {
+                    Text(header).tag(header)
+                }
+            }
+            .pickerStyle(.segmented)
+            .onChange(of: selectedCategory) { newValue in
+                selectedCategoryExercises = contentDataRandomExercise?.filter { $0.category == newValue.lowercased() } ?? []
                 if !selectedCategoryExercises.isEmpty {
-                    VStack {
-                        HStack {
-                            Text("• \(selectedCategoryExercises[selectedCategoryExerciseIndex].exercise1)")
-                                .padding(.leading, 8)
-                            Image(selectedCategoryExercises[selectedCategoryExerciseIndex].exercise1imgpath)
-                                .resizable()
-                                .scaledToFit()
-                                //.frame(width: 50, height: 50) // Set your desired image size here
-                                .frame(width: isImage1Enlarged ? 200 : 50, height: isImage1Enlarged ? 200 : 50) // Set your desired image size here
-                                .onTapGesture {
-                                    isImage1Enlarged.toggle()
-                                }
-                                .gesture(
-                                    isImage1Enlarged ?
-                                        AnyGesture(
-                                            TapGesture()
-                                                .onEnded { _ in
-                                                    // Handle closing the enlarged image, e.g., by setting isImageEnlarged to false
-                                                    isImage1Enlarged = false
-                                                }
-                                        ) : nil
-                                )
-                        }
+                    selectedCategoryExerciseIndex = Utilities.generateRandomIndex(excluding: selectedCategoryExerciseIndex, in: 0..<selectedCategoryExercises.count)
+                }
+            }
 
-                        HStack {
-                            Text("• \(selectedCategoryExercises[selectedCategoryExerciseIndex].exercise2)")
-                                .padding(.leading, 8)
-                            Image(selectedCategoryExercises[selectedCategoryExerciseIndex].exercise2imgpath)
-                                .resizable()
-                                .scaledToFit()
-                               // .frame(width: 50, height: 50) // Set your desired image size here
-                                .frame(width: isImage2Enlarged ? 200 : 50, height: isImage2Enlarged ? 200 : 50) // Set your desired image size here
-                                .onTapGesture {
-                                    isImage2Enlarged.toggle()
-                                }
-                                .gesture(
-                                    isImage2Enlarged ?
-                                        AnyGesture(
-                                            TapGesture()
-                                                .onEnded { _ in
-                                                    // Handle closing the enlarged image, e.g., by setting isImageEnlarged to false
-                                                    isImage2Enlarged = false
-                                                }
-                                        ) : nil
-                                )
-                        }
+            if !selectedCategory.isEmpty, !selectedCategoryExercises.isEmpty {
+                VStack(spacing: 10) {
+
+                    ExerciseRow(
+                        text: selectedCategoryExercises[selectedCategoryExerciseIndex].exercise1,
+                        imageName: selectedCategoryExercises[selectedCategoryExerciseIndex].exercise1imgpath,
+                        isEnlarged: $isImage1Enlarged
+                    )
+
+                    ExerciseRow(
+                        text: selectedCategoryExercises[selectedCategoryExerciseIndex].exercise2,
+                        imageName: selectedCategoryExercises[selectedCategoryExerciseIndex].exercise2imgpath,
+                        isEnlarged: $isImage2Enlarged
+                    )
+                }
+
+                Button {
+                    if !selectedCategoryExercises.isEmpty {
+                        selectedCategoryExerciseIndex = Utilities.generateRandomIndex(excluding: selectedCategoryExerciseIndex, in: 0..<selectedCategoryExercises.count)
                     }
-                }
-
-                
-                Button(action: {
-                    selectedCategoryExerciseIndex =  Utilities.generateRandomIndex(excluding: selectedCategoryExerciseIndex, in: 0..<selectedCategoryExercises.count) //Tento kód vykoná náhodný výber indexu prvku v kolekcii vybranej kategórie cvičení a uloží tento nový index do premennej selectedCategoryExerciseIndex. Týmto spôsobom sa dosiahne efekt zamiešania (shuffle) výberu cvičenia v danej kategórii. Funkcia Utilities.generateRandomIndex(excluding:in:) generuje náhodný index s vylúčením aktuálneho indexu selectedCategoryExerciseIndex a pracuje s rozsahom indexov od 0 do selectedCategoryExercises.count - 1, kde selectedCategoryExercises je kolekcia cvičenia v danej kategórii.
-                }) {
-                    Text("Shuffle")
-                        .padding()
+                } label: {
+                    Text("Shuffle ✨")
+                        .font(.system(size: 15, weight: .bold))
                         .foregroundColor(.white)
-                        .background(Color.red)
-                        .cornerRadius(8)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(
+                            LinearGradient(colors: [accent, accent2], startPoint: .leading, endPoint: .trailing)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        .shadow(radius: 8, y: 3)
                 }
             }
 
-            Button(action: {
-                randomChallenge = self.contentDataRandomChallenge?.randomElement()?.challenge ?? "Error: Not avalaible challenge"
+            Button {
+                randomChallenge = contentDataRandomChallenge?.randomElement()?.challenge ?? "Error: Not available challenge"
                 showAlert = true
-            }) {
-                Text("Random challenge or task")
-                    .padding()
+            } label: {
+                Text("Random challenge / task")
+                    .font(.system(size: 15, weight: .bold))
                     .foregroundColor(.white)
-                    .background(Color.purple)
-                    .cornerRadius(8)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(
+                        LinearGradient(colors: [accent.opacity(0.85), accent2.opacity(0.85)], startPoint: .leading, endPoint: .trailing)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    .shadow(radius: 8, y: 3)
             }
-            
+
         }
-        .padding()
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(8)
-        .onAppear{
-            self.contentDataRandomChallenge = ContentLoader.loadJSON(fileName: "ContentData/HomeRandomChallenge", type: [HomeRandomChallengeModel].self)
-            self.contentDataRandomExercise = ContentLoader.loadJSON(fileName: "ContentData/HomeRandomExercise", type: [HomeRandomExerciseModel].self)
-        }.alert(isPresented: $showAlert) {
+        .padding(16)
+        .background(Color.white.opacity(0.9))
+        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .shadow(radius: 10, y: 4)
+        .onAppear {
+            contentDataRandomChallenge = ContentLoader.loadJSON(fileName: "ContentData/HomeRandomChallenge", type: [HomeRandomChallengeModel].self)
+            contentDataRandomExercise = ContentLoader.loadJSON(fileName: "ContentData/HomeRandomExercise", type: [HomeRandomExerciseModel].self)
+
+            if selectedCategory.isEmpty, let first = GlobalData.exerciseCategory.first {
+                selectedCategory = first
+                selectedCategoryExercises = contentDataRandomExercise?.filter { $0.category == first.lowercased() } ?? []
+            }
+        }
+        .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Random challenge or task"),
                 message: Text(randomChallenge),
                 dismissButton: .default(Text("OK"))
             )
         }
-        .offset(y: 10)
+    }
+}
+
+private struct ExerciseRow: View {
+    let text: String
+    let imageName: String
+    @Binding var isEnlarged: Bool
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Text("• \(text)")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.black.opacity(0.75))
+                .lineLimit(2)
+
+            Spacer()
+
+            Image(imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: isEnlarged ? 180 : 48, height: isEnlarged ? 180 : 48)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .shadow(radius: 6, y: 2)
+                .onTapGesture { isEnlarged.toggle() }
+        }
+        .padding(12)
+        .background(Color.black.opacity(0.04))
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 }

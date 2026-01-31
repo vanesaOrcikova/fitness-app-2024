@@ -1,41 +1,38 @@
-
-import Foundation
 import SwiftUI
+
 struct RecipeInformationDietaryInfo: View {
-    var dietaryTag: String
+    let recipe: RecipesModel
+    let accent: Color
 
-    var getBadgeImage : String{
-        return "dietary_\(dietaryTag)"
+    private var items: [String] {
+        recipe.dietary
+            .components(separatedBy: ";")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
     }
-    
-    var getBadgeText : String{
-        return dietaryInfoTextDict[dietaryTag] ?? ""
+
+    private func pretty(_ raw: String) -> String {
+        raw.replacingOccurrences(of: "_", with: " ").capitalized
     }
-    
-    let dietaryInfoTextDict: [String: String] = [
-        "gluten_free": "Gluten Free",
-        "lactose_free": "Lactose Free",
-        "nut_no": "Nuts Free",
-        "sugar_free": "Sugar Free",
-        "vegan" : "Vegan",
-        "vegetarian" : "Vegetarian"
-    ]
-    
+
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
-            Image(getBadgeImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50)
-                //.clipShape(Circle())
-                    .padding(.leading, 25)
-                    .padding(.top, 10)
-                
-            Text(getBadgeText)
-                .font(.body)
-                .padding(.top, 25)
+        VStack(alignment: .leading, spacing: 12) {
+            ForEach(items, id: \.self) { item in
+                HStack(spacing: 10) {
+                    Image(systemName: "checkmark.seal.fill")
+                        .foregroundColor(accent)
 
-            Spacer() // This pushes the image and text to the left
+                    Text(pretty(item))
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.black.opacity(0.75))
+
+                    Spacer()
+                }
+            }
         }
+        .padding()
+        .background(Color.white.opacity(0.9))
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .shadow(radius: 6, y: 2)
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,6 +39,10 @@
 		1A94F4AC2B52DBE300F9C53F /* RecipeInformationDietaryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A94F4AB2B52DBE300F9C53F /* RecipeInformationDietaryInfo.swift */; };
 		741895592B4F07DB00B9102B /* MiniblogOfMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741895582B4F07DB00B9102B /* MiniblogOfMonth.swift */; };
 		741BAD152B4579FC00288072 /* RMSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741BAD142B4579FC00288072 /* RMSettingViewController.swift */; };
+		743DF5ED2F2E624D00CC578D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743DF5EC2F2E624D00CC578D /* WidgetKit.framework */; };
+		743DF5EF2F2E624D00CC578D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743DF5EE2F2E624D00CC578D /* SwiftUI.framework */; };
+		743DF5FA2F2E624E00CC578D /* HealthyMeWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 743DF5EA2F2E624D00CC578D /* HealthyMeWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		743DF6032F2E65B400CC578D /* MoodStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743DF6022F2E65B200CC578D /* MoodStorage.swift */; };
 		744DBE0D2B13AC8A00DA742D /* BreathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744DBE0C2B13AC8A00DA742D /* BreathView.swift */; };
 		744DBE0F2B13ACD400DA742D /* BreathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744DBE0E2B13ACD400DA742D /* BreathType.swift */; };
 		744DBE112B13AFCB00DA742D /* RMBreathViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744DBE102B13AFCB00DA742D /* RMBreathViewController.swift */; };
@@ -74,6 +78,30 @@
 		74E65F812B8A5F03000F9109 /* video_full_body_stretch.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 74E65F7C2B8A5F03000F9109 /* video_full_body_stretch.mp4 */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		743DF5F82F2E624E00CC578D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 746FEFAD2ACDBC65007D18F7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 743DF5E92F2E624D00CC578D;
+			remoteInfo = HealthyMeWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		743DF5FF2F2E624E00CC578D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				743DF5FA2F2E624E00CC578D /* HealthyMeWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1A391A612B4E893400084BA6 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		1A391A632B4E8F4300084BA6 /* WeeklyMoodOverviewTableReseter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyMoodOverviewTableReseter.swift; sourceTree = "<group>"; };
@@ -104,6 +132,12 @@
 		1A94F4AB2B52DBE300F9C53F /* RecipeInformationDietaryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInformationDietaryInfo.swift; sourceTree = "<group>"; };
 		741895582B4F07DB00B9102B /* MiniblogOfMonth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniblogOfMonth.swift; sourceTree = "<group>"; };
 		741BAD142B4579FC00288072 /* RMSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSettingViewController.swift; sourceTree = "<group>"; };
+		743DF5EA2F2E624D00CC578D /* HealthyMeWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HealthyMeWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		743DF5EC2F2E624D00CC578D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		743DF5EE2F2E624D00CC578D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		743DF6002F2E62D200CC578D /* FitnessApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FitnessApp.entitlements; sourceTree = "<group>"; };
+		743DF6012F2E634D00CC578D /* HealthyMeWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HealthyMeWidgetExtension.entitlements; sourceTree = "<group>"; };
+		743DF6022F2E65B200CC578D /* MoodStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodStorage.swift; sourceTree = "<group>"; };
 		744DBE0C2B13AC8A00DA742D /* BreathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathView.swift; sourceTree = "<group>"; };
 		744DBE0E2B13ACD400DA742D /* BreathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathType.swift; sourceTree = "<group>"; };
 		744DBE102B13AFCB00DA742D /* RMBreathViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMBreathViewController.swift; sourceTree = "<group>"; };
@@ -140,7 +174,30 @@
 		74E65F7C2B8A5F03000F9109 /* video_full_body_stretch.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_full_body_stretch.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		743DF5FB2F2E624E00CC578D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 743DF5E92F2E624D00CC578D /* HealthyMeWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		743DF5F02F2E624D00CC578D /* HealthyMeWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (743DF5FB2F2E624E00CC578D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = HealthyMeWidget; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		743DF5E72F2E624D00CC578D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				743DF5EF2F2E624D00CC578D /* SwiftUI.framework in Frameworks */,
+				743DF5ED2F2E624D00CC578D /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		746FEFB22ACDBC65007D18F7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,6 +223,7 @@
 		1A4276DE2B4D6DC3009C6398 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				743DF6022F2E65B200CC578D /* MoodStorage.swift */,
 				1A4276DF2B4D6E1E009C6398 /* ContentLoader.swift */,
 				1A391A612B4E893400084BA6 /* UserDefaultsExtension.swift */,
 				1A391A712B4ECBA300084BA6 /* Utilities.swift */,
@@ -205,6 +263,15 @@
 				1A814F402B54533E0014D3FD /* ViewExtension.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		743DF5EB2F2E624D00CC578D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				743DF5EC2F2E624D00CC578D /* WidgetKit.framework */,
+				743DF5EE2F2E624D00CC578D /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		744DBE122B13B27D00DA742D /* Breath */ = {
@@ -289,27 +356,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		746BB27D2ACDC40A00B2B545 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		746BB27E2ACDC41300B2B545 /* APIClient */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = APIClient;
-			sourceTree = "<group>";
-		};
-		746BB27F2ACDC41E00B2B545 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
 		746BB2802ACDC45100B2B545 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,7 +386,10 @@
 		746FEFAC2ACDBC65007D18F7 = {
 			isa = PBXGroup;
 			children = (
+				743DF6012F2E634D00CC578D /* HealthyMeWidgetExtension.entitlements */,
 				746FEFB72ACDBC65007D18F7 /* FitnessApp */,
+				743DF5F02F2E624D00CC578D /* HealthyMeWidget */,
+				743DF5EB2F2E624D00CC578D /* Frameworks */,
 				746FEFB62ACDBC65007D18F7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -349,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				746FEFB52ACDBC65007D18F7 /* FitnessApp.app */,
+				743DF5EA2F2E624D00CC578D /* HealthyMeWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -356,12 +406,10 @@
 		746FEFB72ACDBC65007D18F7 /* FitnessApp */ = {
 			isa = PBXGroup;
 			children = (
+				743DF6002F2E62D200CC578D /* FitnessApp.entitlements */,
 				1A814F462B545CC90014D3FD /* GoogleService-Info.plist */,
 				1A4276DE2B4D6DC3009C6398 /* Utilities */,
 				746BB2802ACDC45100B2B545 /* Resources */,
-				746BB27F2ACDC41E00B2B545 /* Managers */,
-				746BB27E2ACDC41300B2B545 /* APIClient */,
-				746BB27D2ACDC40A00B2B545 /* ViewModels */,
 				746BB27C2ACDC3CC00B2B545 /* Views */,
 				746BB27B2ACDC3C500B2B545 /* Models */,
 				1A4277052B4DC737009C6398 /* Code */,
@@ -387,6 +435,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		743DF5E92F2E624D00CC578D /* HealthyMeWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 743DF5FC2F2E624E00CC578D /* Build configuration list for PBXNativeTarget "HealthyMeWidgetExtension" */;
+			buildPhases = (
+				743DF5E62F2E624D00CC578D /* Sources */,
+				743DF5E72F2E624D00CC578D /* Frameworks */,
+				743DF5E82F2E624D00CC578D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				743DF5F02F2E624D00CC578D /* HealthyMeWidget */,
+			);
+			name = HealthyMeWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = HealthyMeWidgetExtension;
+			productReference = 743DF5EA2F2E624D00CC578D /* HealthyMeWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		746FEFB42ACDBC65007D18F7 /* FitnessApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 746FEFC92ACDBC69007D18F7 /* Build configuration list for PBXNativeTarget "FitnessApp" */;
@@ -394,10 +464,12 @@
 				746FEFB12ACDBC65007D18F7 /* Sources */,
 				746FEFB22ACDBC65007D18F7 /* Frameworks */,
 				746FEFB32ACDBC65007D18F7 /* Resources */,
+				743DF5FF2F2E624E00CC578D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				743DF5F92F2E624E00CC578D /* PBXTargetDependency */,
 			);
 			name = FitnessApp;
 			packageProductDependencies = (
@@ -417,9 +489,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					743DF5E92F2E624D00CC578D = {
+						CreatedOnToolsVersion = 26.2;
+					};
 					746FEFB42ACDBC65007D18F7 = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -444,11 +519,19 @@
 			projectRoot = "";
 			targets = (
 				746FEFB42ACDBC65007D18F7 /* FitnessApp */,
+				743DF5E92F2E624D00CC578D /* HealthyMeWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		743DF5E82F2E624D00CC578D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		746FEFB32ACDBC65007D18F7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -469,6 +552,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		743DF5E62F2E624D00CC578D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		746FEFB12ACDBC65007D18F7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -477,6 +567,7 @@
 				1A814F312B544D700014D3FD /* LoginViewController.swift in Sources */,
 				744DBE0F2B13ACD400DA742D /* BreathType.swift in Sources */,
 				746BB28C2ACDC63D00B2B545 /* RMRecipesViewController.swift in Sources */,
+				743DF6032F2E65B400CC578D /* MoodStorage.swift in Sources */,
 				1A391A622B4E893400084BA6 /* UserDefaultsExtension.swift in Sources */,
 				744DBE222B13BC1400DA742D /* myPlanView.swift in Sources */,
 				744DBE0D2B13AC8A00DA742D /* BreathView.swift in Sources */,
@@ -529,6 +620,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		743DF5F92F2E624E00CC578D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 743DF5E92F2E624D00CC578D /* HealthyMeWidgetExtension */;
+			targetProxy = 743DF5F82F2E624E00CC578D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		746FEFC32ACDBC69007D18F7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -541,6 +640,70 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		743DF5FD2F2E624E00CC578D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = HealthyMeWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 59WZSCZ7SM;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HealthyMeWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HealthyMeWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vanesaorcik.fitnessapp.HealthyMeWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		743DF5FE2F2E624E00CC578D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = HealthyMeWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 59WZSCZ7SM;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HealthyMeWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HealthyMeWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vanesaorcik.fitnessapp.HealthyMeWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		746FEFC72ACDBC69007D18F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -665,6 +828,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FitnessApp/FitnessApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 59WZSCZ7SM;
@@ -693,6 +857,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FitnessApp/FitnessApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 59WZSCZ7SM;
@@ -719,6 +884,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		743DF5FC2F2E624E00CC578D /* Build configuration list for PBXNativeTarget "HealthyMeWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				743DF5FD2F2E624E00CC578D /* Debug */,
+				743DF5FE2F2E624E00CC578D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		746FEFB02ACDBC65007D18F7 /* Build configuration list for PBXProject "FitnessApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

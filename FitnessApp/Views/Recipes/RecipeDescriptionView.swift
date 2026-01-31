@@ -1,279 +1,367 @@
 import SwiftUI
 
 struct RecipeDescriptionView: View {
-    @State private var isShowingImages = false
-    
-    @State private var selectedCategory: String = "Ingredients"
-    @State private var number: Int = 1
-    
-    var recipeData: RecipesModel?
-    private var contentDataRecipeController : RecipeModelController?
+    let recipeData: RecipesModel
 
-    init(recipeData : RecipesModel? = nil)
-    {
-        self.recipeData = recipeData
-        if let recipe = recipeData {
-               self.contentDataRecipeController = RecipeModelController(recipe: recipe)
-        }
+    @State private var selectedInfoTab: InfoTab = .ingredients
+    @State private var isMoreImagesPresented: Bool = false
+
+    // ✅ pre konzistentný layout
+    @State private var isDescriptionExpanded: Bool = false
+
+    private let accent = Color(red: 0.85, green: 0.20, blue: 0.70)
+    private let softBg = Color(red: 1.0, green: 0.97, blue: 0.99)
+
+    enum InfoTab: String, CaseIterable {
+        case ingredients = "Ingredients"
+        case nutrition = "Nutrition"
+        case dietary = "Dietary Info"
     }
-    
+
+    private var totalTime: Int { recipeData.waitingtime + recipeData.cookingtime }
+
     var body: some View {
-        if let recipeController = contentDataRecipeController{
-            ScrollView {
-                VStack {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            Image(recipeController.recipe.imgpath)
-                                .resizable()
-                                .frame(maxWidth: 390)
-                                .frame(height: 400)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+
+                // MARK: - HEADER IMAGE
+                ZStack {
+                    Image(recipeData.imgpath)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 340)
+                        .clipped()
+
+                    LinearGradient(
+                        colors: [.black.opacity(0.35), .clear],
+                        startPoint: .top,
+                        endPoint: .center
+                    )
+                }
+
+                // MARK: - CONTENT
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(recipeData.name)
+                        .font(.system(size: 26, weight: .bold))
+                        .foregroundColor(.black.opacity(0.85))
+
+                    HStack(spacing: 8) {
+                        InfoPill(text: "\(totalTime) MIN", color: accent)
+                        InfoPill(text: recipeData.difficulty.uppercased(), color: accent.opacity(0.85))
+                    }
+
+                    // MARK: - WAITING/COOKING with lines
+                    VStack(spacing: 10) {
+                        TimeLineRow(
+                            title: "WAITING TIME",
+                            minutes: recipeData.waitingtime,
+                            totalMinutes: max(totalTime, 1),
+                            lineColor: accent.opacity(0.65)
+                        )
+                        TimeLineRow(
+                            title: "COOKING TIME",
+                            minutes: recipeData.cookingtime,
+                            totalMinutes: max(totalTime, 1),
+                            lineColor: Color.green.opacity(0.70)
+                        )
+                    }
+                    .padding(.top, 4)
+
+                    Divider().opacity(0.25)
+
+                    // ✅ DESCRIPTION – fixná výška (Information nebude skákať)
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(recipeData.description)
+                            .font(.system(size: 15))
+                            .foregroundColor(.black.opacity(0.70))
+                            .lineSpacing(4)
+                            .lineLimit(isDescriptionExpanded ? nil : 4) // ✅ fix
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                        Button {
+                            withAnimation(.easeInOut) {
+                                isDescriptionExpanded.toggle()
+                            }
+                        } label: {
+                            Text(isDescriptionExpanded ? "Show less" : "Read more")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(accent)
                         }
                     }
-                    .padding(.top, -185)
-                    
-//                    ScrollView(.horizontal, showsIndicators: false) {
-//                        HStack(spacing: 0) {
-//                            ForEach(0..<2) { _ in
-//                                Image(recipeController.recipe.imgpath)
-//                                    .resizable()
-//                                    .frame(maxWidth: 390)
-//                                    .frame(height: 370)
-//                            }
-//                        }
-//                    }
-//                    .padding(.top, -195)
 
-                    
-                    HStack {
-                        Text(recipeController.recipe.name)
-                            .font(.system(size: 23))
-                        Spacer()
+                    // ✅ jednotná medzera pred Information
+                    .padding(.bottom, 4)
+
+                    // MARK: - INFORMATION + tabs
+                    Text("Information")
+                        .font(.system(size: 22, weight: .bold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 8)
+
+                    InfoTabPicker(selected: $selectedInfoTab, accent: accent)
+
+                    Group {
+                        switch selectedInfoTab {
+                        case .ingredients:
+                            IngredientsCard(ingredientsRaw: recipeData.ingredients, accent: accent)
+                        case .nutrition:
+                            RecipeInformationNutritionBadge(recipe: recipeData, accent: accent)
+                        case .dietary:
+                            RecipeInformationDietaryInfo(recipe: recipeData, accent: accent)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Divider().opacity(0.25)
+
+                    // MARK: - STEPS
+                    Text("Steps")
+                        .font(.system(size: 22, weight: .bold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    StepsCard(stepsRaw: recipeData.recipesteps)
+
+                    // MARK: - MORE IMAGES
+                    Button {
+                        isMoreImagesPresented = true
+                    } label: {
+                        Text("More Images")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(
+                                LinearGradient(
+                                    colors: [accent, accent.opacity(0.7)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                            .shadow(radius: 10, y: 4)
                     }
                     .padding(.top, 10)
-                    .padding(.leading, 31)
-                    
-                    HStack {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 1)
-                                .foregroundColor(.purple)
-                                .frame(height: 30)
-                                .frame(width: 75)
-                            
-                            Text("\(recipeController.getFullDuration) MIN")
-                                .font(.system(size: 16))
-                                .bold()
-                                .foregroundColor(.white)
-                                .font(.headline)
-                        }
-                        
-                        
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 1)
-                                .foregroundColor(.purple)
-                                .frame(height: 30)
-                                .frame(width: 75)
-                            
-                            Text(recipeController.recipe.difficulty.uppercased(with: .autoupdatingCurrent))
-                                .font(.system(size: 16))
-                                .bold()
-                                .foregroundColor(.white)
-                                .font(.headline)
-                        }     
+                    .sheet(isPresented: $isMoreImagesPresented) {
+                        MoreImagesSheet(buttonImagePaths: recipeData.buttonimagepaths, accent: accent, softBg: softBg)
                     }
-                    .padding(.trailing, 170)
-                    
+
+                    Spacer(minLength: 20)
+                }
+                .padding(20)
+                .background(softBg)
+                .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+                .offset(y: -30)
+            }
+        }
+        .ignoresSafeArea(edges: .top)
+        .background(softBg)
+    }
+}
+
+// MARK: - UI Parts
+
+private struct InfoPill: View {
+    let text: String
+    let color: Color
+
+    var body: some View {
+        Text(text)
+            .font(.system(size: 13, weight: .bold))
+            .foregroundColor(.white)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(color)
+            .clipShape(Capsule())
+    }
+}
+
+private struct TimeLineRow: View {
+    let title: String
+    let minutes: Int
+    let totalMinutes: Int
+    let lineColor: Color
+
+    private var progress: CGFloat {
+        CGFloat(minutes) / CGFloat(max(totalMinutes, 1))
+    }
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Text(title)
+                .font(.system(size: 12, weight: .bold))
+                .foregroundColor(.black.opacity(0.55))
+                .frame(width: 110, alignment: .leading)
+
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(Color.black.opacity(0.08))
+                        .frame(height: 6)
+
+                    Capsule()
+                        .fill(lineColor)
+                        .frame(width: max(10, geo.size.width * progress), height: 6)
+                }
+            }
+            .frame(height: 10)
+
+            Text("\(minutes) MIN")
+                .font(.system(size: 12, weight: .bold))
+                .foregroundColor(.black.opacity(0.65))
+                .frame(width: 60, alignment: .trailing)
+        }
+    }
+}
+
+private struct InfoTabPicker: View {
+    @Binding var selected: RecipeDescriptionView.InfoTab
+    let accent: Color
+
+    var body: some View {
+        HStack(spacing: 8) {
+            ForEach(RecipeDescriptionView.InfoTab.allCases, id: \.self) { tab in
+                let isOn = selected == tab
+                Button {
+                    withAnimation { selected = tab }
+                } label: {
+                    Text(tab.rawValue)
+                        .font(.system(size: 13, weight: .bold))
+                        .foregroundColor(isOn ? .white : .black.opacity(0.65))
+                        .padding(.vertical, 10)
+                        .frame(maxWidth: .infinity)
+                        .background(isOn ? accent : Color.white.opacity(0.9))
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        .shadow(radius: isOn ? 8 : 3, y: 2)
+                }
+            }
+        }
+        .padding(.top, 2)
+    }
+}
+
+private struct IngredientsCard: View {
+    let ingredientsRaw: String
+    let accent: Color
+
+    private var ingredients: [String] {
+        ingredientsRaw
+            .components(separatedBy: ";")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            ForEach(ingredients, id: \.self) { ing in
+                HStack(spacing: 10) {
+                    Circle()
+                        .fill(accent.opacity(0.8))
+                        .frame(width: 6, height: 6)
+
+                    Text(ing)
+                        .font(.system(size: 14))
+                        .foregroundColor(.black.opacity(0.75))
+
                     Spacer()
-                    
-                   
-                    VStack {
-                        HStack {
-                            Text("WAITING TIME")
-                                .font(.system(size: 16))
-                                .bold()
-                                .foregroundColor(.brown)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 30)
-                            
-                            Button(action: {
-                                // Action for the divider
-                                print("Divider Tapped")
-                            }) {
-                                Rectangle()
-                                    .foregroundColor(.brown)
-                                    .frame(height: 3)
-                                    //.frame(width: min(CGFloat(recipeController.recipe.duration) * 3, 180))
-                                    .frame(width: min(CGFloat(recipeController.recipe.waitingtime) * 3, 180))
-                                //.offset(x: 10)
-                                //.padding(.horizontal, 30)
-                            }
-                            
-                            Text("\(recipeController.recipe.waitingtime) MIN")
-                            //Text("\(recipeController.recipe.duration) MIN")
-                                .foregroundColor(.black)
-                                .font(.system(size: 14))
-                                .padding(.trailing)
-                        }
-                        
-                        HStack {
-                            Text("COOKING TIME")
-                                .font(.system(size: 16))
-                                .bold()
-                                .foregroundColor(.green)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 30)
-                            
-                            Button(action: {
-                                // Action for the divider
-                                print("Divider Tapped")
-                            }) {
-                                Rectangle()
-                                    .foregroundColor(.green)
-                                    .frame(height: 3)
-                                    .frame(width: min(CGFloat(recipeController.recipe.cookingtime) * 3, 180))
-                                //.offset(x: 10)
-                                //.padding(.horizontal, 30)
-                            }
-                            
-                            Text("\(recipeController.recipe.cookingtime) MIN")
-                                .foregroundColor(.black)
-                                .font(.system(size: 14))
-                                .padding(.trailing)
-                        }}
-                    
-                    Text("--------------------------------------------")
-                        .foregroundColor(.purple) // Farebná čiarka
-                    
-                    VStack {
-                        Text(recipeController.recipe.description)
-                            .padding(.horizontal, 20)
-                            .padding(.top, -20)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(.bottom, 10)
-                            .padding(.leading, -8)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(Color.white.opacity(0.9))
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .shadow(radius: 6, y: 2)
+    }
+}
 
-                        Text("Information")
-                            .font(.system(size: 23))
-                            .padding(.trailing, 220)
-                           //.padding(.top, -50)
-                            .font(.headline)
-                            
-                        Picker("", selection: $selectedCategory) {
-                            ForEach(GlobalData.recipeCategory, id: \.self) { header in
-                                Text(header)
-                                    .tag(header)
-                            }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
+private struct StepsCard: View {
+    let stepsRaw: String
 
-                        if !selectedCategory.isEmpty {
-//                            if selectedCategory == GlobalData.recipeCategory[0]{
-//                                VStack(alignment: .leading){
-//                                    ForEach(Array(recipeController.ingredients.enumerated()), id: \.element) { index, ingredient in
-//                                        Text("• \(ingredient)")
-//                                            // .padding(.horizontal, 20)
-//                                            .padding(.trailing, 125)
-//                                     }
-//                                }
-//                            }
-                            if selectedCategory == GlobalData.recipeCategory[0] {
-                                VStack(alignment: .leading) {
-                                    ForEach(Array(recipeController.ingredients.enumerated()), id: \.element) { index, ingredient in
-                                        HStack {
-                                            Text("• \(ingredient)")
-                                                .padding(.leading, 10)
-                                            Spacer()
-                                            
-                                        }
-                                    }
-                                }
-                                }
-                                else if selectedCategory == GlobalData.recipeCategory[1]{
-                                VStack(alignment: .leading, spacing: 4) {
-                                    ForEach(Array(recipeController.nutritions.enumerated()), id: \.element) { index, nutrition in
-                                        RecipeInformationNutritionBadge(nutritionIndex: index, nutritionValue: nutrition )
-                                    }
-                                 
-                                    Text("per portion") // This text is below the HStack
-                                        .font(.body)
-                                        .padding(.top, 5)
-                                        .padding(.leading, 22)
-                                }
-                    
-                            } else {
-                                VStack(alignment: .leading, spacing: 4) {
-                                    ForEach(Array(recipeController.dietary.enumerated()), id: \.element) { index, dietaryTag in
-                                        RecipeInformationDietaryInfo(dietaryTag: dietaryTag)
-                                    }
-                                }
-                            }
-                        }
-                        
-                        Text("------------------------------------------")
-                            .foregroundColor(.purple) // Farebná čiarka
-                        
-                        Text("Steps")
-                            .font(.system(size: 23))
-                            .padding(.trailing, 280)
-                           //.padding(.top, 10)
-                            //.padding(.top, 4)
-                            .font(.headline)
-                        
-                        VStack(alignment: .leading) {
-                            ForEach(Array(recipeController.recipeSteps.enumerated()), id: \.element) { index, recipeStep in
-                                HStack {
-                                    Text("\(index + 1). \(recipeStep)")
-                                        .padding(.leading, 14)
-                                    Spacer()
-                                    
-                                }
-                                
-                            }
-                        }.padding(.bottom, 10)
-                        
-                        Button(action: {
-                            isShowingImages.toggle()
-                        }) {
-                            Text("More Images")
-                                .font(.system(size: 17))
-                                .bold()
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.purple)
-                                .cornerRadius(10)
-                        }
-                                    
-                        if isShowingImages {
-                            VStack {
-                                VStack(alignment: .leading, spacing: 4) {
-                                    ForEach(Array(recipeController.buttonImages.enumerated()), id: \.element) { index, buttonImage in
-                                           Image(buttonImage)
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(maxWidth: 390, maxHeight: 370)
-                                            }
-                                        }
-            
-                                Button(action: {
-                                    isShowingImages.toggle()
-                                }) {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .foregroundColor(.black)
-                                        .padding()
-                                }
-                            }
-                        }
-                        
-                        Spacer()
+    private var steps: [String] {
+        stepsRaw
+            .components(separatedBy: ";")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            ForEach(steps.indices, id: \.self) { i in
+                Text("\(i + 1). \(steps[i])")
+                    .font(.system(size: 14))
+                    .foregroundColor(.black.opacity(0.78))
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(Color.white.opacity(0.9))
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .shadow(radius: 6, y: 2)
+    }
+}
+
+private struct MoreImagesSheet: View {
+    let buttonImagePaths: String
+    let accent: Color
+    let softBg: Color
+
+    @Environment(\.dismiss) private var dismiss
+
+    private var images: [String] {
+        buttonImagePaths
+            .components(separatedBy: ";")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+    }
+
+    var body: some View {
+        ZStack {
+            softBg.ignoresSafeArea()
+
+            VStack(spacing: 14) {
+                HStack {
+                    Text("More Images ✨")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.black.opacity(0.8))
+                    Spacer()
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(.black.opacity(0.7))
+                            .padding(10)
+                            .background(Color.white.opacity(0.9))
+                            .clipShape(Circle())
+                            .shadow(radius: 6, y: 2)
                     }
-                    .padding()
-                            
-                    //}
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 12)
+
+                if images.isEmpty {
+                    Text("No extra images found.")
+                        .foregroundColor(.gray)
+                        .padding(.top, 40)
+                    Spacer()
+                } else {
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: 12) {
+                            ForEach(images, id: \.self) { imgName in
+                                Image(imgName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                                    .shadow(radius: 10, y: 4)
+                                    .padding(.horizontal, 16)
+                            }
+                        }
+                        .padding(.top, 6)
+                        .padding(.bottom, 20)
+                    }
                 }
             }
         }
     }
 }
 
-#Preview {
-    RecipeDescriptionView()
-}
