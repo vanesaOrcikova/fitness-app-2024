@@ -24,4 +24,3 @@ class WeeklyMoodOverviewTableReseter {
 }
 
 
-//Tento kód definuje triedu WeeklyMoodOverviewTableReseter v jazyku Swift, ktorá slúži na periodické resetovanie týždennej prehľadovej tabuľky nálad. Trieda obsahuje metódu scheduleWeeklyReset, ktorá plánuje reset tabuľky na budúcu nedeľu pomocou Timer, a metódu resetWeek, ktorá vykoná samotný reset tabuľky a potom plánuje ďalší reset pre budúci týždeň. Metóda getNextResetTime vypočítava dátum a čas nasledujúcej nedele (polnoc), aby mohol byť reset plánovaný na tento čas. Trieda tiež obsahuje zdieľanú inštanciu shared, čo je konvenčný spôsob vytvorenia singletonu, teda inštancia, ktorá je zdieľaná naprieč celou aplikáciou.

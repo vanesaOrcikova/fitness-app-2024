@@ -1,19 +1,3 @@
-//import Foundation
-//extension UserDefaults {
-//    func setWeekArray(_ array: [String], forKey key: String) {
-//        let data = try? JSONEncoder().encode(array)
-//        self.set(data, forKey: key)
-//    }
-//
-//    func weekArray(forKey key: String) -> [String] {
-//        guard let data = self.data(forKey: key),
-//              let array = try? JSONDecoder().decode([String].self, from: data) else {
-//            return Array(repeating: "", count: 7)
-//        }
-//        return array
-//    }
-//}
-
 import Foundation
 
 extension UserDefaults {

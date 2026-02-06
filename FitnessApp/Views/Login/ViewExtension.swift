@@ -1,15 +1,24 @@
-//import Foundation
-//import SwiftUI
-//
-//extension View {
-//    func getRootViewController() -> UIViewController {
-//        guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
-//            return .init()
-//        }
-//
-//        guard let root = screen.windows.first?.rootViewController else {
-//            return .init()
-//        }
-//        return root
-//    }
-//}
+import UIKit
+import SwiftUI
+
+extension UIApplication {
+
+    var rootViewController: UIViewController? {
+        connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }?
+            .rootViewController
+    }
+}
+
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil
+        )
+    }
+}

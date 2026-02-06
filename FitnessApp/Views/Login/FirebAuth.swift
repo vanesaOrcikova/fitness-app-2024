@@ -1,96 +1,98 @@
-//import Foundation
-//import FirebaseAuth
-//import GoogleSignIn
-//import Firebase
-//
-//struct FirebAuth {
-//    static let share = FirebAuth()
-//    static public var window : UIWindow?
-//    
-//    private init() {}
-//    
-//    static func isUserLoggedIn() -> Bool {
-//          return Auth.auth().currentUser != nil
-//    } //ci uzivatel je prihlaseny
-//    
-//    //ak uzivatel neexistuje vo firebase databaze tak sa musi znovu prihlasit do aplikacie
-//    static func loggedOutIfUserIsNotValid(completion: @escaping (Bool) -> Void) {
-//        if let currentUser = Auth.auth().currentUser {
-//            currentUser.getIDTokenForcingRefresh(true) { idToken, error in
-//                if let error = error as NSError?, error.code == AuthErrorCode.userNotFound.rawValue {
-//                    // User account doesn't exist anymore, sign out
-//                    do {
-//                        try Auth.auth().signOut()
-//                        // Update UserDefaults or any other local state
-//                        UserDefaults.standard.set(false, forKey: "signIn")
-//                        completion(true) // User logged out successfully
-//                    } catch let signOutError as NSError {
-//                        print("Error signing out: %@", signOutError)
-//                        completion(false) // Failed to log out
-//                    }
-//                } else {
-//                    // No error, user still valid
-//                    completion(false) // User is still valid, no log out performed
-//                }
-//            }
-//        } else {
-//            // No current user
-//            completion(false) // No user to log out
-//        }
-//    }
-//    
-//    static func logOutCurrentUser(completion: @escaping (Bool) -> Void) {
-//        if let currentUser = Auth.auth().currentUser {
-//            do {
-//                try Auth.auth().signOut()
-//                // Update UserDefaults or any other local state
-//                UserDefaults.standard.set(false, forKey: "signIn")
-//                completion(true) // User logged out successfully
-//            } catch let signOutError as NSError {
-//                print("Error signing out: %@", signOutError)
-//                completion(false) // Failed to log out
-//            }
-//        } else {
-//            // No current user
-//            completion(false) // No user to log out
-//        }
-//    }
-//
-//    static func signInWithGoogle(presentingViewController: UIViewController, completion: @escaping (Error?) -> Void) {
-//           guard let clientID = FirebaseApp.app()?.options.clientID else {
-//               completion(NSError(domain: "FirebaseError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve client ID"]))
-//               return
-//           }
-//
-//           // Create Google Sign In configuration object.
-//           let config = GIDConfiguration(clientID: clientID)
-//           GIDSignIn.sharedInstance.configuration = config
-//
-//           // Start the sign in flow!
-//           GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { user, error in
-//               guard error == nil else {
-//                   completion(error)
-//                   return
-//               }
-//
-//               guard let user = user?.user,
-//                     let idToken = user.idToken?.tokenString else {
-//                   completion(NSError(domain: "GoogleSignInError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to retrieve ID token"]))
-//                   return
-//               }
-//
-//               let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
-//
-//               Auth.auth().signIn(with: credential) { result, error in
-//                   guard error == nil else {
-//                       completion(error)
-//                       return
-//                   }
-//                   
-//                   print("Sign In")
-//                   UserDefaults.standard.set(true, forKey: "signIn")
-//                   completion(nil)
-//               }
-//           }
-//       }
-//}
+import FirebaseAuth
+import FirebaseCore
+import GoogleSignIn
+import UIKit
+
+final class FirebAuth {
+
+    static let shared = FirebAuth()
+    private init() {}
+
+    // ✅ Získa ClientID:
+    // 1) ideálne z FirebaseApp options (ak máš správny GoogleService-Info.plist)
+    // 2) fallback: z Info.plist URL scheme -> spraví z toho klasický clientID
+    private func resolveClientID() -> String? {
+
+        if let clientID = FirebaseApp.app()?.options.clientID, !clientID.isEmpty {
+            return clientID
+        }
+
+        // Fallback: z URL scheme typu "com.googleusercontent.apps.XXX"
+        if let urlTypes = Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]] {
+            for item in urlTypes {
+                if let schemes = item["CFBundleURLSchemes"] as? [String] {
+                    for scheme in schemes {
+                        if scheme.hasPrefix("com.googleusercontent.apps.") {
+                            let suffix = scheme.replacingOccurrences(of: "com.googleusercontent.apps.", with: "")
+                            // z "1015...-abcd" spravíme "1015...-abcd.apps.googleusercontent.com"
+                            return "\(suffix).apps.googleusercontent.com"
+                        }
+                    }
+                }
+            }
+        }
+
+        return nil
+    }
+
+    func signInWithGoogle(
+        presenting viewController: UIViewController,
+        completion: @escaping (Bool) -> Void
+    ) {
+
+        guard let clientID = resolveClientID() else {
+            print("❌ Missing Google ClientID. Skontroluj GoogleService-Info.plist alebo URL scheme v Info.plist.")
+            DispatchQueue.main.async { completion(false) }
+            return
+        }
+
+        print("✅ Using Google clientID:", clientID)
+
+        let configuration = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = configuration
+
+        GIDSignIn.sharedInstance.signIn(withPresenting: viewController) { result, error in
+            if let error = error {
+                print("❌ Google Sign-In error:", error)
+                DispatchQueue.main.async { completion(false) }
+                return
+            }
+
+            guard
+                let user = result?.user,
+                let idToken = user.idToken?.tokenString
+            else {
+                print("❌ Missing Google token/user.")
+                DispatchQueue.main.async { completion(false) }
+                return
+            }
+
+            let credential = GoogleAuthProvider.credential(
+                withIDToken: idToken,
+                accessToken: user.accessToken.tokenString
+            )
+
+            Auth.auth().signIn(with: credential) { _, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print("❌ Firebase login error:", error)
+                        completion(false)
+                    } else {
+                        print("✅ Login successful")
+                        completion(true)
+                    }
+                }
+            }
+        }
+    }
+
+    func signOut() -> Bool {
+        do {
+            try Auth.auth().signOut()
+            return true
+        } catch {
+            print("❌ Sign out error:", error)
+            return false
+        }
+    }
+}

@@ -1,37 +1,44 @@
-//import UIKit
-//import SwiftUI
-//
-//class LoginViewController: UIViewController {
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        let hostingController = UIHostingController(rootView: LoginView(onLoginSuccess: {
-//            navigateToMainTabBarController()
-//        }))
-//
-//
-//        // Add the hosting controller as a child view controller
-//        addChild(hostingController)
-//        view.addSubview(hostingController.view)
-//        hostingController.didMove(toParent: self)
-//
-//        // Set up constraints for the hosting controller's view
-//        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
-//            hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//        ])
-//        
-//        func navigateToMainTabBarController() {
-//            let mainTabBarController = RMTabBarController() // Initialize your main tab bar controller here
-//            if let window = UIApplication.shared.windows.first {
-//                window.rootViewController = mainTabBarController
-//                window.makeKeyAndVisible()
-//                UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
-//            }
-//        }
-//    }
-//}
+import UIKit
+import SwiftUI
+import FirebaseAuth
+import GoogleSignIn
+
+final class LoginViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+
+        // ✅ PrettyLoginView zavolá callback -> startGoogleSignIn()
+        let loginView = PrettyLoginView { [weak self] in
+            self?.startGoogleSignIn()
+        }
+
+        let host = UIHostingController(rootView: loginView)
+        addChild(host)
+        host.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(host.view)
+
+        NSLayoutConstraint.activate([
+            host.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            host.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            host.view.topAnchor.constraint(equalTo: view.topAnchor),
+            host.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        host.didMove(toParent: self)
+    }
+
+    private func startGoogleSignIn() {
+        // ✅ Toto je presne to, čo ti fungovalo v LoginView
+        // Potrebujeme "presenting" view controller
+        FirebAuth.shared.signInWithGoogle(presenting: self) { success in
+            if success {
+                print("✅ Logged in")
+                // SceneDelegate listener to už prepne automaticky
+            } else {
+                print("❌ Login failed")
+            }
+        }
+    }
+}

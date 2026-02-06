@@ -2,29 +2,35 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CLIENT_ID</key>
+	<string>95901769686-asqhqs8v8mqiqgn201timek9hnkcgp12.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.95901769686-asqhqs8v8mqiqgn201timek9hnkcgp12</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDEHAHxucYIk2Q__EsPg7bXDXcYxDJrHSk</string>
+	<string>AIzaSyBJ1rdrinM3_CW09V12q4urmoZbIzUoge4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1015353975578</string>
+	<string>95901769686</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.vanesaorcik.fitnessapp</string>
 	<key>PROJECT_ID</key>
-	<string>vanesafitnessapp</string>
+	<string>signup-d5a40</string>
 	<key>STORAGE_BUCKET</key>
-	<string>vanesafitnessapp.firebasestorage.app</string>
+	<string>signup-d5a40.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1015353975578:ios:7ba02728c789498f5502a3</string>
+	<string>1:95901769686:ios:f2edc082e259a849b78e77</string>
 </dict>
 </plist>
