@@ -3,7 +3,7 @@ import Foundation
 class Utilities {
 
    static func generateRandomIndex(excluding currentIndex: Int, in range: Range<Int>) -> Int {
-        guard range.count > 1 else { return currentIndex } // Return current if range is too small
+        guard range.count > 1 else { return currentIndex }
 
         var newIndex: Int
         repeat {
@@ -14,4 +14,5 @@ class Utilities {
     }
 }
 
-//Tento kód definuje triedu Utilities v jazyku Swift, ktorá obsahuje statickú metódu generateRandomIndex. Táto metóda generuje náhodný index v danom rozsahu, pričom vylučuje aktuálny index (zadaný parametrom currentIndex). Ak je rozsah menší alebo rovný jednej, metóda vráti aktuálny index. V opačnom prípade opakovane generuje náhodné indexy v danom rozsahu, kým nenájde index odlišný od aktuálneho, a potom ho vráti. Táto funkcia je užitočná napríklad pre generovanie náhodných indexov v poli, pri vynechaní aktuálneho indexu.
+// Táto funkcia ti vyberie náhodný index z rozsahu (napr. 0..<10), ale zabezpečí, že to nebude rovnaký index ako predtým. Čiže keď napríklad generuješ nové motivácie alebo emoji, nebude sa ti stále opakovať to isté.
+

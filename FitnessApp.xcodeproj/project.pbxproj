@@ -37,7 +37,6 @@
 		1A94F4AA2B52C50400F9C53F /* HomeMiniblogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A94F4A92B52C50400F9C53F /* HomeMiniblogModel.swift */; };
 		1A94F4AC2B52DBE300F9C53F /* RecipeInformationDietaryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A94F4AB2B52DBE300F9C53F /* RecipeInformationDietaryInfo.swift */; };
 		741895592B4F07DB00B9102B /* MiniblogOfMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741895582B4F07DB00B9102B /* MiniblogOfMonth.swift */; };
-		741BAD152B4579FC00288072 /* RMSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741BAD142B4579FC00288072 /* RMSettingViewController.swift */; };
 		74341EF12F2F4BEF00021C5A /* myPlanDailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74341EF02F2F4BEC00021C5A /* myPlanDailyView.swift */; };
 		74341EF32F2F4C0400021C5A /* myPlanMealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74341EF22F2F4C0200021C5A /* myPlanMealView.swift */; };
 		74341EF52F2F537800021C5A /* MyPlanBlogHeaderPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74341EF42F2F537600021C5A /* MyPlanBlogHeaderPager.swift */; };
@@ -105,7 +104,6 @@
 		1A94F4A92B52C50400F9C53F /* HomeMiniblogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMiniblogModel.swift; sourceTree = "<group>"; };
 		1A94F4AB2B52DBE300F9C53F /* RecipeInformationDietaryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInformationDietaryInfo.swift; sourceTree = "<group>"; };
 		741895582B4F07DB00B9102B /* MiniblogOfMonth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiniblogOfMonth.swift; sourceTree = "<group>"; };
-		741BAD142B4579FC00288072 /* RMSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSettingViewController.swift; sourceTree = "<group>"; };
 		74341EF02F2F4BEC00021C5A /* myPlanDailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPlanDailyView.swift; sourceTree = "<group>"; };
 		74341EF22F2F4C0200021C5A /* myPlanMealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPlanMealView.swift; sourceTree = "<group>"; };
 		74341EF42F2F537600021C5A /* MyPlanBlogHeaderPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlanBlogHeaderPager.swift; sourceTree = "<group>"; };
@@ -353,7 +351,6 @@
 				744DBE102B13AFCB00DA742D /* RMBreathViewController.swift */,
 				744DBE1A2B13B62000DA742D /* RMWorkoutViewController.swift */,
 				744DBE2B2B13BD0C00DA742D /* RMmyPlanViewController.swift */,
-				741BAD142B4579FC00288072 /* RMSettingViewController.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -557,7 +554,6 @@
 				746FEFB92ACDBC65007D18F7 /* AppDelegate.swift in Sources */,
 				1A391A6A2B4E97A300084BA6 /* ReminderView.swift in Sources */,
 				1A391A722B4ECBA300084BA6 /* Utilities.swift in Sources */,
-				741BAD152B4579FC00288072 /* RMSettingViewController.swift in Sources */,
 				1A4276E62B4D6E97009C6398 /* HomeMotivationQuoteModel.swift in Sources */,
 				74DB133A2B8B32D500160C36 /* WorkoutElement.swift in Sources */,
 				74B79EFA2B1DB3EF00A94780 /* HomeView.swift in Sources */,

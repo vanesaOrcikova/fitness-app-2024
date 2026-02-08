@@ -8,7 +8,6 @@ extension UserDefaults {
         UserDefaults(suiteName: appGroupId) ?? .standard
     }
 
-    // --- tvoje pôvodné ---
     func setWeekArray(_ array: [String], forKey key: String) {
         let data = try? JSONEncoder().encode(array)
         self.set(data, forKey: key)
@@ -22,7 +21,6 @@ extension UserDefaults {
         return array
     }
 
-    // --- shared (App Group) ---
     func setWeekArrayShared(_ array: [String], forKey key: String) {
         let data = try? JSONEncoder().encode(array)
         UserDefaults.shared.set(data, forKey: key)
@@ -36,7 +34,7 @@ extension UserDefaults {
         return array
     }
 
-    // ✅ NOVÉ: posledne zvolený mood (pre widget)
+    // NOVÉ: posledne zvolený mood (pre widget)
     func setLastMoodShared(emoji: String, dayIndex: Int) {
         UserDefaults.shared.set(emoji, forKey: "healthyMe_lastMoodEmoji_v1")
         UserDefaults.shared.set(dayIndex, forKey: "healthyMe_lastMoodDayIndex_v1")
@@ -54,6 +52,6 @@ extension UserDefaults {
     }
 }
 
+// Tento súbor pridáva do UserDefaults vlastné funkcie, aby si vedela jednoducho ukladať a načítavať dáta. Vie uložiť a načítať array pre 7 dní (napr. plán, mood, texty). Máš tu aj verziu pre App Group, aby to vedel používať widget. Na konci sú funkcie na uloženie posledného mood emoji spolu s dňom a časom, aby widget vedel zobraziť poslednú náladu.
 
 
-//Tento kód rozširuje funkcionalitu triedy UserDefaults v jazyku Swift tak, že pridáva metódy setWeekArray a weekArray. Metóda setWeekArray umožňuje uloženie poľa reťazcov do užívateľských preferencií pod daným kľúčom, pričom pole je pred uložením zakódované do formátu JSON. Metóda weekArray potom slúži na načítanie uloženého poľa reťazcov z užívateľských preferencií pre daný kľúč, pričom dekóduje dáta z formátu JSON späť do poľa reťazcov. V prípade, že žiadne dáta nie sú k dispozícii pre daný kľúč, alebo dekódovanie zlyhá, je vrátené pole s prázdnymi reťazcami. Tieto rozšírenia sú užitočné pre ukladanie a načítanie štruktúrovaných dát v užívateľských preferenciách s využitím formátu JSON.

@@ -20,4 +20,4 @@ class ContentLoader {
     }
 }
 
-//Tento kód je implementovaný v jazyku Swift a slúži na načítanie dát zo súborov vo formáte JSON. Funkcia loadJSON prijíma názov súboru a typ objektu, do ktorého sú údaje dekódované. Ak je súbor nájdený a údaje sú úspešne dekódované, funkcia vráti inštanciu daného objektu. V opačnom prípade vráti nil a vypíše chybu, ak súbor nie je nájdený alebo dekódovanie zlyhá. Táto funkcia je užitočná pre načítanie statických dát zo súborov JSON a ich následné spracovanie v aplikáciách v jazyku Swift.
+// Tento kód načíta .json súbor, ktorý máš uložený v projekte. Potom ho pomocou JSONDecoder premení na Swift typ (napríklad pole stringov alebo tvoju štruktúru). Ak súbor neexistuje alebo JSON nesedí so štruktúrou, vypíše error a vráti nil.

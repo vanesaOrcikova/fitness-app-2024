@@ -23,3 +23,5 @@ final class MoodStorage {
         WidgetCenter.shared.reloadAllTimelines()
     }
 }
+
+// Tento kód si pamätá emoji nálady. Keď user vyberie emoji, uloží sa do UserDefaults v App Groupe, takže ho vie použiť aj widget. A potom sa widget hneď obnoví, aby sa tam ukázala nová nálada.
