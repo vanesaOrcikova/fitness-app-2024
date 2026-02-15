@@ -62,6 +62,9 @@ The app uses Firebase Authentication with Google Sign-In support. User data is s
 ![IMG_7298](https://github.com/user-attachments/assets/702c31b3-3c88-4fcc-ac29-47a461df5e7b)
 ![IMG_7299](https://github.com/user-attachments/assets/9423a55f-10d1-45b3-acb0-1db5aa174780)
 ![IMG_7300](https://github.com/user-attachments/assets/97eeb03a-bc9a-4895-b52f-fa9c06a7807d)
+![IMG_7306 (1)](https://github.com/user-attachments/assets/ec957bcf-a9e8-4fd6-bc36-98e16a691fdf)
+
+
 ![IMG_7301](https://github.com/user-attachments/assets/148561b6-b57e-4ba2-ac21-1f93e9ae0f7f)
 ![IMG_7302](https://github.com/user-attachments/assets/02d7d72c-efcb-4c00-888b-cbcb201c6976)
 
