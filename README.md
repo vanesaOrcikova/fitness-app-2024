@@ -52,5 +52,26 @@ The app uses Firebase Authentication with Google Sign-In support. User data is s
     •	changes are saved continuously and remain available even after the app is closed
 
 
+![IMG_7294](https://github.com/user-attachments/assets/5882aa09-e227-4393-9952-e39ca41d287b)
+
+![IMG_7295](https://github.com/user-attachments/assets/37d16af7-e9c5-4cde-b477-a48ab89043d4)
+![IMG_7296](https://github.com/user-attachments/assets/6f707e6c-8e78-4169-a02b-38ccd3488d7d)
+
+![IMG_7297](https://github.com/user-attachments/assets/95529510-7d4f-4362-af92-b9f3913a49e3)
+
+![IMG_7298](https://github.com/user-attachments/assets/702c31b3-3c88-4fcc-ac29-47a461df5e7b)
+![IMG_7299](https://github.com/user-attachments/assets/9423a55f-10d1-45b3-acb0-1db5aa174780)
+![IMG_7300](https://github.com/user-attachments/assets/97eeb03a-bc9a-4895-b52f-fa9c06a7807d)
+![IMG_7301](https://github.com/user-attachments/assets/148561b6-b57e-4ba2-ac21-1f93e9ae0f7f)
+![IMG_7302](https://github.com/user-attachments/assets/02d7d72c-efcb-4c00-888b-cbcb201c6976)
+
+![IMG_7303](https://github.com/user-attachments/assets/d4e4c88a-c9d2-404a-82cf-f1f533a90639)
+![IMG_7305 (1)](https://github.com/user-attachments/assets/337a0fe0-39a6-41fa-a773-0227fa3f05ad)
+![IMG_7304](https://github.com/user-attachments/assets/4fcaa28a-5ad0-4da2-8b5f-81c5ca8c63f5)
+
+
+
+
+
 
 
