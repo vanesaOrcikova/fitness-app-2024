@@ -60,13 +60,22 @@ Each recipe includes a dedicated detail screen (RecipeDescriptionView), where ex
 
 Nutrition and dietary data are presented through separate reusable UI components (RecipeInformationNutritionBadge, RecipeInformationDietaryInfo), which improves UI modularity and makes the design easier to maintain and expand.
 
+🏋️ Workout – Workout Module
 
+I implemented the Workout module in WorkoutView as an overview of available workouts, where individual workouts are displayed using the reusable WorkoutElement component. The module also includes a filtering system through FilterSelectionView, which allows users to select workouts by category and simplifies navigation through the content.
 
+Currently, workout videos are stored locally directly within the project, which ensures offline availability. In the future, this system could be improved by hosting the videos on external storage, allowing easier content updates and reducing the overall app size.
 
+🗓️ My Plan
 
+I implemented the My Plan module as a dedicated daily planning section in myPlanView, designed to help users organize their everyday activities and tasks in a structured way. The module is built to provide a clear daily overview, while separating content into multiple reusable screens and SwiftUI components.
 
+📌 Main Features of the Module
 
-
+    • Daily Overview (myPlanDailyView): the module includes a daily view where items are displayed based on the selected date. Content is loaded dynamically and presented in a clean structured layout, allowing users to quickly see what they need to complete during the day.
+    • Item Management (tasks / planning): all planning items are represented through a structured data model (ItemModel) and managed through MyPlanModelsStore, which handles loading, updating, and storing user data. This allows the module to maintain consistent state and structured content organization.
+    • Add/Edit Workflow (MyPlanEditorSheet): adding and editing items is implemented using a dedicated sheet-based editor view. The editor allows users to configure multiple item parameters such as title, priority, and additional details. This approach keeps the main UI flow clean while enabling fast data input.
+    • Meal Planning (myPlanMealView): the module also includes a meal planning section, where users can organize meals as part of their daily plan. This extends the functionality beyond standard task management and supports more complete daily scheduling.
 
 
 ![IMG_7294](https://github.com/user-attachments/assets/5882aa09-e227-4393-9952-e39ca41d287b)
