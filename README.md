@@ -1,55 +1,72 @@
-💡 Idea
+💡 Idea 
 
-The application was originally created as a project for Stredoškolská odborná činnosť (SOČ) during high school. Since it was one of my first larger applications built in Swift/SwiftUI, the project contained several imperfections in terms of design, functionality, and code structure.
-Later, I decided to improve and expand the application in order to practically develop my iOS development skills. My main focus was on:
+The app was originally created as a project for the Secondary School Professional Activity (SOČ) competition during high school. Since it was one of my first larger applications built in Swift/SwiftUI, the original version had several shortcomings in terms of design, functionality, and code structure.
 
-    •	improving the overall UI/UX
-    •	updating and extending the core features
-    •	improving project organization and architecture
-    •	making data handling and user account management more stable
-The project is focused on productivity, fitness, and well-being, combining multiple modules into one application that can be used in everyday life.
+Later, I decided to rebuild and redesign the app and expand its features. During the refactoring and expansion process, I focused mainly on:
 
-🏗️ Architecture & Structure
+    • improving UI/UX and visual consistency
+    • expanding and refining the core functionalities
+    • better project organization and module separation
+    • more stable data handling and user account management
 
-The application is developed using SwiftUI and follows the MVVM (Model–View–ViewModel) architecture. The main focus is placed on clean state management, a modular structure, and consistent UI design across all screens. Navigation is implemented using TabView, which divides the application into separate modules.
+🔐 Authentication and User Account Management 
 
+The app uses Firebase Authentication with Google Sign-In support, allowing users to log in quickly and easily. Authentication is designed so that users don't lose access to their data when relaunching the app. On startup, a custom launch screen is displayed, after which the user's login state is verified and, depending on the result, either the login flow or the main app interface is shown.
 
-🔐 Authentication & Data Persistence
+💾 Data Handling 
 
-The app uses Firebase Authentication with Google Sign-In support. User data is stored persistently and remains available even after the app is closed. A custom launch screen is displayed when the application starts.
+User data is saved and remains accessible even after the app is closed. Data is processed through a structured model and is linked to a specific user account. A notable highlight of the project is the implementation of a custom JSON loader, which is used to load predefined content (e.g. recipes, tips, or motivational content) from JSON files.
 
-📱 Screens / Modules
-
-    •	Home – daily overview, mood tracker, motivational content, reminders, and tips
-    •	Breath – simple breathing module focused on mental well-being
-    •	Recipes – recipe search, filter/sort system, and recipe detail view
-    •	Workout – workout overview with search and filtering options
-    •	My Plan – daily planning and simple task management
-    •	Add Item Sheet – adding tasks with priority and optional time settings
-    •	Logout – user logout management
-
+    • JSON files are loaded through a separate loader logic
+    • data is mapped to Swift models using Codable
+    • this approach allows for easy content expansion without touching the UI layer
     
-⚙️ Technologies Used
+This system improves the maintainability of the app and simplifies future content expansion.
 
-    •	SwiftUI
-    •	MVVM Architecture
-    •	Firebase Authentication
-    •	Google Sign-In
-    •	TabView Navigation
-    •	SwiftUI State Management
-    •	Persistent Data Storage
-    •	Custom Launch Screen
+📱 App Modules and Screens 
 
- 🔄 App Flow Overview
- 
-    •	app launches and displays a custom launch screen
-    •	the system checks the user session via Firebase Authentication
-    •	if the user is not logged in, authentication is handled through Google Sign-In
-    •	after login, saved user data is loaded
-    •	the app displays the main TabView interface
-    •	navigation between modules is available (Home, Breath, Recipes, Workout, My Plan)
-    •   items can be added or edited using sheet-based views
-    •	changes are saved continuously and remain available even after the app is closed
+The app is divided into several modules, each representing a distinct feature implemented through its own SwiftUI views. Navigation between sections is handled via TabView. Each module includes an overview screen and, where needed, detail screens that open using navigation or sheet presentation.
+
+🏠 Home Screen
+
+I implemented the home screen as the main dashboard in HomeView using a ScrollView, where content is divided into separate SwiftUI components. The layout is built on a card-based design with a custom background and visual elements (RoundedRectangle, LinearGradient, shadow) to keep the UI consistent and clean.
+
+📌 Main Sections of the Home Screen
+
+    • The Header section displays the current date using DateFormatter and serves as the introductory visual element of the app.
+    • Weekly Mood Overview (WeeklyMoodOverviewTable) is implemented using LazyVGrid, where the user selects a mood emoji for each day of the week. Mood values are saved to UserDefaults (shared storage) and upon change, WidgetCenter.shared.reloadAllTimelines() is called to automatically update the widget.
+    • Random Exercise Challenge (RandomExerciseChallengeView) uses a Picker in segmented style to select a category and randomly generate exercises via a utility function. Challenges are selected dynamically and displayed through an Alert. Data is loaded via ContentLoader.loadJSON.
+    • Motivational Quote (MotivationalQuoteView) loads quotes from JSON and displays a "quote of the day" based on the current date, ensuring consistent daily content.
+    • Reminders (ReminderView) work similarly — content is loaded from JSON and selected based on the current date, with the display handled through custom row components.
+    • Miniblog of the Month (MiniblogOfMonth) displays monthly content that changes based on the current month and adds a longer-term motivational element to the home screen.
+
+🌬️ Breath – Breathing Module
+
+I implemented the Breath module as a standalone SwiftUI screen (BreathView) designed for simple guided breathing exercises. Different breathing modes are defined in BreathType, where the inhale/exhale time intervals are stored, making it easy to extend the module with additional breathing routines.
+
+The breathing flow is controlled using @State variables and a Timer, which handles countdown logic and automatically switches between breathing phases. For a smoother user experience, the module also uses animations (withAnimation) to visually represent inhale and exhale transitions.
+
+🍲 Recipes – Recipe Search & Detail Module
+
+I implemented the Recipes module as a structured content browsing system in RecipesView, where recipes are displayed in a scroll-based layout with a clean UI design. The module supports recipe discovery through an organized list/grid presentation, making navigation user-friendly.
+
+A key feature is the integration of search and filtering logic, allowing users to quickly find specific recipes and sort them based on selected parameters. Recipe items are rendered using reusable UI components such as RecipesViewScrollTemplateElement, ensuring consistent layout and scalable code structure.
+
+Each recipe includes a dedicated detail screen (RecipeDescriptionView), where extended information is displayed, including:
+
+    • description and recipe overview
+    • nutrition-related highlights
+    • dietary information
+
+Nutrition and dietary data are presented through separate reusable UI components (RecipeInformationNutritionBadge, RecipeInformationDietaryInfo), which improves UI modularity and makes the design easier to maintain and expand.
+
+
+
+
+
+
+
+
 
 
 ![IMG_7294](https://github.com/user-attachments/assets/5882aa09-e227-4393-9952-e39ca41d287b)
